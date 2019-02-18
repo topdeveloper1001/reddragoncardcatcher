@@ -1,0 +1,79 @@
+﻿<UserControl
+    x:Class="RedDragonCardCatcher.Views.DBSelectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:prism="http://www.codeplex.com/prism"
+    xmlns:rdcc="http://www.reddragoncardcatcher.com/winfx/2019/xaml/presentation"
+    xmlns:ent="clr-namespace:RedDragonCardCatcher.Entities"
+    xmlns:v="clr-namespace:RedDragonCardCatcher.Views">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="10" />
+            <RowDefinition
+                Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Text="{ResX Key=Common_DBSelection_Notice}"
+            TextWrapping="Wrap" />
+
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+
+            <Button
+                Style="{StaticResource NormalButtonStyle}"
+                Width="100"
+                Content="{ResX Key=Common_DBSelection_DriveHUD}"
+                Command="{Binding SelectCommand}"
+                CommandParameter="{x:Static ent:DatabaseType.DH}" />
+
+            <Button
+                Style="{StaticResource NormalButtonStyle}"
+                Margin="5,0,0,0"
+                Width="120"
+                Content="{ResX Key=Common_DBSelection_PT4}"
+                Command="{Binding SelectCommand}"
+                CommandParameter="{x:Static ent:DatabaseType.PT4}" />
+
+            <Button
+                Style="{StaticResource NormalButtonStyle}"
+                Margin="5,0,0,0"
+                Width="140"
+                Content="{ResX Key=Common_DBSelection_HM2}"
+                Command="{Binding SelectCommand}"
+                CommandParameter="{x:Static ent:DatabaseType.HM2}" />
+
+        </StackPanel>
+
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger
+            SourceObject="{Binding NotificationRequest}">
+            <rdcc:ShowWindowViewAction
+                StartupLocation="CenterAssosiated"
+                SingleOnly="True"
+                ViewName="{x:Static v:RegionViewNames.NotificationPopupView}"
+                IsModal="True">
+                <rdcc:ShowWindowViewAction.WindowStyle>
+                    <Style
+                        BasedOn="{StaticResource NotificationWindowStyle}"
+                        TargetType="{x:Type rdcc:RDCCWindow}">
+                        <Setter
+                            Property="Topmost"
+                            Value="True" />
+                    </Style>
+                </rdcc:ShowWindowViewAction.WindowStyle>
+            </rdcc:ShowWindowViewAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
+</UserControl>

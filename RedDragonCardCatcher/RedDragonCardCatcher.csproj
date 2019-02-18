@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F355318-7131-492C-B67D-FF2CCBB47438}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RedDragonCardCatcher</RootNamespace>
+    <AssemblyName>RedDragonCardCatcher</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DeployLX.Licensing.v5">
+      <HintPath>..\Dependencies\DeployLX.Licensing.v5.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.1.0.145, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.1.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Unity.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Unity.6.3.0\lib\net45\Prism.Unity.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI, Version=7.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\reactiveui-core.7.4.0\lib\Net45\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.1.6.2\lib\Net45\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Entities\DatabaseType.cs" />
+    <Compile Include="Entities\EnumPokerSites.cs" />
+    <Compile Include="Entities\HandHistoryDto.cs" />
+    <Compile Include="Entities\TournamentsTags.cs" />
+    <Compile Include="Events\ShowWarningEvent.cs" />
+    <Compile Include="Events\ShowWarningEventArgs.cs" />
+    <Compile Include="HandHistories.Converters\IpokerConverter.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\Action.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\ActionType.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\Cards.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\CardsType.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\Game.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\GameGeneral.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\General.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\HandHistory.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\Player.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\PokerConfiguration.cs" />
+    <Compile Include="HandHistories.Converters\IPoker\Round.cs" />
+    <Compile Include="HandHistories.Objects\Actions\AllInAction.cs" />
+    <Compile Include="HandHistories.Objects\Actions\HandAction.cs" />
+    <Compile Include="HandHistories.Objects\Actions\HandActionType.cs" />
+    <Compile Include="HandHistories.Objects\Actions\StreetAction.cs" />
+    <Compile Include="HandHistories.Objects\Actions\WinningsAction.cs" />
+    <Compile Include="HandHistories.Objects\Cards\BoardCards.cs" />
+    <Compile Include="HandHistories.Objects\Cards\Card.cs" />
+    <Compile Include="HandHistories.Objects\Cards\Card.Enums.cs" />
+    <Compile Include="HandHistories.Objects\Cards\CardGroup.cs" />
+    <Compile Include="HandHistories.Objects\Cards\HoleCards.cs" />
+    <Compile Include="HandHistories.Objects\Cards\Street.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\Buyin.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\Currency.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\GameDescriptor.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\GameTypes.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\GameTypeUtils.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\Limit.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\LimitClassEnum.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\LimitEnum.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\LimitGameTypePair.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\PokerFormat.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\PokerFormatUtils.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\SeatType.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\TableType.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\TableTypeDescription.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\TournamentDescriptor.cs" />
+    <Compile Include="HandHistories.Objects\GameDescription\TournamentSpeed.cs" />
+    <Compile Include="HandHistories.Objects\Hand\HandHistory.cs" />
+    <Compile Include="HandHistories.Objects\Hand\HandHistorySummary.cs" />
+    <Compile Include="HandHistories.Objects\Hand\HandParseError.cs" />
+    <Compile Include="HandHistories.Objects\Players\Player.cs" />
+    <Compile Include="HandHistories.Objects\Players\PlayerList.cs" />
+    <Compile Include="HandHistories.Objects\Utils\AllInActionHelper.cs" />
+    <Compile Include="HandHistories.Objects\Utils\HandAction.StreetExtension.cs" />
+    <Compile Include="HandHistories.Objects\Utils\HandHistoryUtils.cs" />
+    <Compile Include="HandHistories.Objects\Utils\PotCalculator.cs" />
+    <Compile Include="Importers\BaseImporter.cs" />
+    <Compile Include="Importers\DHService.cs" />
+    <Compile Include="Importers\HandHistoryData.cs" />
+    <Compile Include="Importers\HM2Service.cs" />
+    <Compile Include="Importers\IBackgroundProcess.cs" />
+    <Compile Include="Importers\IBaseImporter.cs" />
+    <Compile Include="Importers\IDatabaseService.cs" />
+    <Compile Include="Importers\IDHImporterService.cs" />
+    <Compile Include="Importers\IImporterService.cs" />
+    <Compile Include="Importers\ImporterService.cs" />
+    <Compile Include="Importers\IProtectedLogger.cs" />
+    <Compile Include="Importers\ProtectedLogger.cs" />
+    <Compile Include="Importers\ProtectedLoggerConfiguration.cs" />
+    <Compile Include="Importers\PT4Service.cs" />
+    <Compile Include="Licensing\DeployLXLicensingServer.cs" />
+    <Compile Include="Licensing\IBaseLicenseInfo.cs" />
+    <Compile Include="Licensing\ILicenseInfo.cs" />
+    <Compile Include="Licensing\ILicenseService.cs" />
+    <Compile Include="Licensing\LicenseCouldNotActivateException.cs" />
+    <Compile Include="Licensing\LicenseException.cs" />
+    <Compile Include="Licensing\LicenseExpiredException.cs" />
+    <Compile Include="Licensing\LicenseInfo.cs" />
+    <Compile Include="Licensing\LicenseInvalidSerialException.cs" />
+    <Compile Include="Licensing\LicenseNoConnectionException.cs" />
+    <Compile Include="Licensing\LicenseService.cs" />
+    <Compile Include="Licensing\LicenseSubType.cs" />
+    <Compile Include="Licensing\LicenseType.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Overlays\CustomWin32Window.cs" />
+    <Compile Include="Overlays\CustomWindowClassHelper.cs" />
+    <Compile Include="Overlays\RDOverlayWindow.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Security\ILicenseManager.cs" />
+    <Compile Include="Security\PPSReg.cs" />
+    <Compile Include="Security\PPTReg.cs" />
+    <Compile Include="Services\DbInstaller\DBHelper.cs" />
+    <Compile Include="Services\DbInstaller\EmptyDbInstaller.cs" />
+    <Compile Include="Services\DbInstaller\Hm2DbInstaller.cs" />
+    <Compile Include="Services\DbInstaller\IDbInstaller.cs" />
+    <Compile Include="Services\DbInstaller\IniFile.cs" />
+    <Compile Include="Services\DbInstaller\IPT4Configurator.cs" />
+    <Compile Include="Services\DbInstaller\PT4Configurator.cs" />
+    <Compile Include="Services\DbInstaller\PT4DbInstaller.cs" />
+    <Compile Include="Services\DbInstaller\PT4HudProfile.cs" />
+    <Compile Include="Services\DbInstaller\PT4HudProfileConfig.cs" />
+    <Compile Include="Services\FrameworkVersion.cs" />
+    <Compile Include="Services\FrameworkVersionDetection.cs" />
+    <Compile Include="Services\HandHistoryFileInfo.cs" />
+    <Compile Include="Services\HandHistoryFileService.cs" />
+    <Compile Include="Services\IHandHistoryFileService.cs" />
+    <Compile Include="Services\ILogCollector.cs" />
+    <Compile Include="Services\LogCleaner.cs" />
+    <Compile Include="Services\LogCollector.cs" />
+    <Compile Include="Settings\ISettingsService.cs" />
+    <Compile Include="Settings\SettingsModel.cs" />
+    <Compile Include="Settings\SettingsService.cs" />
+    <Compile Include="SingleInstance.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Updater\ApplicationInfo.cs" />
+    <Compile Include="Updater\ApplicationInfoLoader.cs" />
+    <Compile Include="Updater\AppUpdater.cs" />
+    <Compile Include="Updater\UpdateProcessingFileChangedEventArgs.cs" />
+    <Compile Include="Updater\UpdaterError.cs" />
+    <Compile Include="Updater\UpdaterException.cs" />
+    <Compile Include="Updater\UpdaterOperation.cs" />
+    <Compile Include="Updater\UpdaterOperationChangedEventArgs.cs" />
+    <Compile Include="Updater\UpdaterPaths.cs" />
+    <Compile Include="Updater\UpdaterProgressChangedEventArgs.cs" />
+    <Compile Include="ViewModels\DBSelectionPopupRequestInfo.cs" />
+    <Compile Include="ViewModels\DBSelectionViewModel.cs" />
+    <Compile Include="ViewModels\IDBSelectionViewModel.cs" />
+    <Compile Include="ViewModels\INotificationViewModel.cs" />
+    <Compile Include="ViewModels\IRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\ISettingsViewModel.cs" />
+    <Compile Include="ViewModels\IUpdateViewModel.cs" />
+    <Compile Include="ViewModels\LicenseInfoViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\NotificationPopupRequestInfo.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\NotificationViewModelInfo.cs" />
+    <Compile Include="ViewModels\RegistrationPopupRequestInfo.cs" />
+    <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\SettingsPopupRequestInfo.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UpdatePopupRequestInfo.cs" />
+    <Compile Include="ViewModels\UpdateReleaseNoteViewModel.cs" />
+    <Compile Include="ViewModels\UpdateViewModel.cs" />
+    <Compile Include="Views\DBSelectionView.xaml.cs">
+      <DependentUpon>DBSelectionView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ErrorBox.cs" />
+    <Compile Include="Views\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\RegionViewNames.cs" />
+    <Compile Include="Views\RegistrationView.xaml.cs">
+      <DependentUpon>RegistrationView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\UpdateView.xaml.cs">
+      <DependentUpon>UpdateView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Services\DbInstaller\Profiles\Cash - PPP IPoker Profile.pt4hud" />
+    <None Include="Services\DbInstaller\Profiles\Tournament - PPP IPoker Profile.pt4hud" />
+    <EmbeddedResource Include="Updater\UpdaterDataScheme.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Resource Include="Fonts\OpenSans-Regular.ttf" />
+    <Resource Include="Fonts\OpenSans-Semibold.ttf" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedDragonCardCatcher.Common.Resources\RedDragonCardCatcher.Common.Resources.csproj">
+      <Project>{e7dfac82-b6b3-439f-a30c-4dbf1cf3f736}</Project>
+      <Name>RedDragonCardCatcher.Common.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedDragonCardCatcher.Common.Wpf\RedDragonCardCatcher.Common.Wpf.csproj">
+      <Project>{b8dcefba-bc49-463e-99df-0869c82b7897}</Project>
+      <Name>RedDragonCardCatcher.Common.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedDragonCardCatcher.Common\RedDragonCardCatcher.Common.csproj">
+      <Project>{0113cf46-6735-496e-8eaa-7106c4f9c77a}</Project>
+      <Name>RedDragonCardCatcher.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background.png" />
+    <Resource Include="Images\ppp-logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ControlStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\RDCCWindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DBSelectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ErrorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RegistrationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UpdateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
