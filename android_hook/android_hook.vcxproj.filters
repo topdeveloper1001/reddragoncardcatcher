@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="injector">
+      <UniqueIdentifier>{172d7d10-df4f-4b4a-970d-bc459bb9df48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libhook">
+      <UniqueIdentifier>{bf02befb-1e85-4063-b479-f373d686921d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libhookimpl">
+      <UniqueIdentifier>{af8cd33e-b6d6-4737-97ee-0e9d307164c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libinject">
+      <UniqueIdentifier>{51ec3190-2362-42f9-b0fe-1a5509721aea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jni\injector\Android.mk">
+      <Filter>injector</Filter>
+    </None>
+    <None Include="jni\libhook\Android.mk">
+      <Filter>libhook</Filter>
+    </None>
+    <None Include="jni\libhookimpl\Android.mk">
+      <Filter>libhookimpl</Filter>
+    </None>
+    <None Include="jni\libinject\Android.mk">
+      <Filter>libinject</Filter>
+    </None>
+    <None Include="jni\Android.mk" />
+    <None Include="jni\Application.mk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jni\injector\main.cpp">
+      <Filter>injector</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\libhook\subhook.c">
+      <Filter>libhook</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\libhook\subhook_unix.c">
+      <Filter>libhook</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\libhook\subhook_x86.c">
+      <Filter>libhook</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\libhookimpl\main.c">
+      <Filter>libhookimpl</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\libinject\inject.cpp">
+      <Filter>libinject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jni\libhook\subhook.h">
+      <Filter>libhook</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\libhook\subhook_private.h">
+      <Filter>libhook</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\libinject\inject.h">
+      <Filter>libinject</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
