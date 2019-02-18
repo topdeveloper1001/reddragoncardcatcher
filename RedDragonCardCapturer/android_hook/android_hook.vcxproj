@@ -11,25 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\jni\Android.mk" />
-    <None Include="..\jni\Application.mk" />
-    <None Include="..\jni\injector\Android.mk" />
-    <None Include="..\jni\libhookimpl\Android.mk" />
-    <None Include="..\jni\libhook\Android.mk" />
-    <None Include="..\jni\libinject\Android.mk" />
+    <None Include=".\jni\Android.mk" />
+    <None Include=".\jni\Application.mk" />
+    <None Include=".\jni\injector\Android.mk" />
+    <None Include=".\jni\libhookimpl\Android.mk" />
+    <None Include=".\jni\libhook\Android.mk" />
+    <None Include=".\jni\libinject\Android.mk" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\jni\injector\main.cpp" />
-    <ClCompile Include="..\jni\libhookimpl\main.c" />
-    <ClCompile Include="..\jni\libhook\subhook.c" />
-    <ClCompile Include="..\jni\libhook\subhook_unix.c" />
-    <ClCompile Include="..\jni\libhook\subhook_x86.c" />
-    <ClCompile Include="..\jni\libinject\inject.cpp" />
+    <ClCompile Include=".\jni\injector\main.cpp" />
+    <ClCompile Include=".\jni\libhookimpl\main.c" />
+    <ClCompile Include=".\jni\libhook\subhook.c" />
+    <ClCompile Include=".\jni\libhook\subhook_unix.c" />
+    <ClCompile Include=".\jni\libhook\subhook_x86.c" />
+    <ClCompile Include=".\jni\libinject\inject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\jni\libhook\subhook.h" />
-    <ClInclude Include="..\jni\libhook\subhook_private.h" />
-    <ClInclude Include="..\jni\libinject\inject.h" />
+    <ClInclude Include=".\jni\libhook\subhook.h" />
+    <ClInclude Include=".\jni\libhook\subhook_private.h" />
+    <ClInclude Include=".\jni\libinject\inject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0c54de2c-3bc9-4c73-9e4e-16e488d7ea7d}</ProjectGuid>
