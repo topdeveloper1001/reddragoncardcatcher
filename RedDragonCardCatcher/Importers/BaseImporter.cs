@@ -10,7 +10,9 @@
 // </copyright>
 //----------------------------------------------------------------------
 
+using Microsoft.Practices.ServiceLocation;
 using RedDragonCardCatcher.Common.Log;
+using RedDragonCardCatcher.Settings;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +25,8 @@ namespace RedDragonCardCatcher.Importers
 
         protected CancellationTokenSource cancellationTokenSource;
 
+        protected Lazy<ISettingsService> settings = new Lazy<ISettingsService>(() => ServiceLocator.Current.GetInstance<ISettingsService>());
+
         public bool IsRunning
         {
             get
@@ -32,6 +36,10 @@ namespace RedDragonCardCatcher.Importers
         }
 
         public abstract string ImporterName { get; }
+
+        protected ISettingsService Settings => settings.Value;
+
+        protected bool IsAdvancedLogEnabled => Settings.GetSettings()?.IsAdvancedLoggingEnabled ?? false;
 
         #region IBackgroundProcess implementation
 
@@ -94,7 +102,7 @@ namespace RedDragonCardCatcher.Importers
 
             ProcessStopped?.Invoke(this, EventArgs.Empty);
 
-            LogProvider.Log.Info(this, $"\"{ImporterName}\" importer has been stopped");
+            LogProvider.Log.Info(this, $"\"{ImporterName}\" has been stopped");
         }
 
         #endregion

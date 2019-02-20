@@ -113,6 +113,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         DetourDetach(&(PVOID &)hook::true_RTFileWrite, hook::RTFileWrite_hook);
 
         DetourTransactionCommit();
+
+		transport::Cleanup();
+
         break;
     }
     return TRUE;

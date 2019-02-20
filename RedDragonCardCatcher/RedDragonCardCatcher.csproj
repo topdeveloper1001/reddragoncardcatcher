@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -197,6 +198,12 @@
     <Compile Include="HandHistories.Objects\Utils\HandAction.StreetExtension.cs" />
     <Compile Include="HandHistories.Objects\Utils\HandHistoryUtils.cs" />
     <Compile Include="HandHistories.Objects\Utils\PotCalculator.cs" />
+    <Compile Include="Importers\AndroidServices\EmulatorInfo.cs" />
+    <Compile Include="Importers\AndroidServices\EmulatorProviders\IEmulatorProvider.cs" />
+    <Compile Include="Importers\AndroidServices\EmulatorProviders\MomoEmulatorProvider.cs" />
+    <Compile Include="Importers\AndroidServices\EmulatorProviders\VirtualBoxEmulator.cs" />
+    <Compile Include="Importers\AndroidServices\EmulatorService.cs" />
+    <Compile Include="Importers\AndroidServices\IEmulatorService.cs" />
     <Compile Include="Importers\BaseImporter.cs" />
     <Compile Include="Importers\DHService.cs" />
     <Compile Include="Importers\HandHistoryData.cs" />
@@ -208,9 +215,15 @@
     <Compile Include="Importers\IImporterService.cs" />
     <Compile Include="Importers\ImporterService.cs" />
     <Compile Include="Importers\IProtectedLogger.cs" />
+    <Compile Include="Importers\PipeServices\IPipeReaderService.cs" />
+    <Compile Include="Importers\PipeServices\PipeReaderService.cs" />
     <Compile Include="Importers\ProtectedLogger.cs" />
     <Compile Include="Importers\ProtectedLoggerConfiguration.cs" />
     <Compile Include="Importers\PT4Service.cs" />
+    <Compile Include="Importers\RDImporters\DataManager.cs" />
+    <Compile Include="Importers\RDImporters\IDataManager.cs" />
+    <Compile Include="Importers\RDImporters\IRDImporter.cs" />
+    <Compile Include="Importers\RDImporters\RDImporter.cs" />
     <Compile Include="Licensing\DeployLXLicensingServer.cs" />
     <Compile Include="Licensing\IBaseLicenseInfo.cs" />
     <Compile Include="Licensing\ILicenseInfo.cs" />
@@ -330,6 +343,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="Lib\injector">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Lib\libhookimpl.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Services\DbInstaller\Profiles\Cash - PPP IPoker Profile.pt4hud" />
     <None Include="Services\DbInstaller\Profiles\Tournament - PPP IPoker Profile.pt4hud" />
@@ -413,6 +432,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\HereBeDragons.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

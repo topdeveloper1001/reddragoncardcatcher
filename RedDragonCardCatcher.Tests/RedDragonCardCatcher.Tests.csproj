@@ -78,11 +78,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmulatorServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedDragonCardCatcher.Common.Resources\RedDragonCardCatcher.Common.Resources.csproj">
+      <Project>{e7dfac82-b6b3-439f-a30c-4dbf1cf3f736}</Project>
+      <Name>RedDragonCardCatcher.Common.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedDragonCardCatcher.Common.Wpf\RedDragonCardCatcher.Common.Wpf.csproj">
+      <Project>{b8dcefba-bc49-463e-99df-0869c82b7897}</Project>
+      <Name>RedDragonCardCatcher.Common.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedDragonCardCatcher.Common\RedDragonCardCatcher.Common.csproj">
+      <Project>{0113cf46-6735-496e-8eaa-7106c4f9c77a}</Project>
+      <Name>RedDragonCardCatcher.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedDragonCardCatcher\RedDragonCardCatcher.csproj">
+      <Project>{7f355318-7131-492c-b67d-ff2ccbb47438}</Project>
+      <Name>RedDragonCardCatcher</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
