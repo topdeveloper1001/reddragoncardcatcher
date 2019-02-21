@@ -215,8 +215,9 @@
     <Compile Include="Importers\IImporterService.cs" />
     <Compile Include="Importers\ImporterService.cs" />
     <Compile Include="Importers\IProtectedLogger.cs" />
-    <Compile Include="Importers\PipeServices\IPipeReaderService.cs" />
-    <Compile Include="Importers\PipeServices\PipeReaderService.cs" />
+    <Compile Include="Importers\PipeServices\IPipeServerJob.cs" />
+    <Compile Include="Importers\PipeServices\PipeData.cs" />
+    <Compile Include="Importers\PipeServices\PipeServerJob.cs" />
     <Compile Include="Importers\ProtectedLogger.cs" />
     <Compile Include="Importers\ProtectedLoggerConfiguration.cs" />
     <Compile Include="Importers\PT4Service.cs" />
@@ -437,6 +438,9 @@
     <Content Include="Lib\HereBeDragons.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

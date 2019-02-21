@@ -28,13 +28,19 @@ namespace RedDragonCardCatcher.Importers
     {
         private const int NoDataDelay = 200;
         private const int ShowPreHUDDelay = 2500;
-        private readonly BlockingCollection<byte[]> packetBuffer = new BlockingCollection<byte[]>();
+        private readonly BlockingCollection<PipeData> packetBuffer = new BlockingCollection<PipeData>();
+        private IProtectedLogger protectedLogger;
 
         public override string ImporterName => "RDImporter";
 
-        public void AddPackage(byte[] data)
+        public void AddPackage(PipeData pipeData)
         {
-            packetBuffer.Add(data);
+            if (!IsRunning)
+            {
+                return;
+            }
+
+            packetBuffer.Add(pipeData);
         }
 
         protected override void DoImport()
@@ -48,6 +54,7 @@ namespace RedDragonCardCatcher.Importers
                 LogProvider.Log.Error(this, $"General failure in processing of buffer data.", e);
             }
 
+            isRunning = false;
             packetBuffer.Clear();
 
             RaiseProcessStopped();
@@ -58,25 +65,58 @@ namespace RedDragonCardCatcher.Importers
         /// </summary>
         private void ProcessBuffer()
         {
+            var dataManager = ServiceLocator.Current.GetInstance<IDataManager>();
+
             while (!cancellationTokenSource.IsCancellationRequested)
             {
                 try
                 {
-                    if (!packetBuffer.TryTake(out byte[] capturedData))
+                    if (!packetBuffer.TryTake(out PipeData capturedData))
                     {
                         Task.Delay(NoDataDelay).Wait();
                         continue;
                     }
 
-                    LogPacket(capturedData);
+                    var data = dataManager.ProcessData(capturedData.Data);
 
-
+                    LogPacket(data);
                 }
                 catch (Exception e)
                 {
                     LogProvider.Log.Error(this, $"Failed to process buffered data.", e);
                 }
             }
+
+            protectedLogger?.StopLogging();
+        }
+
+
+        /// <summary>
+        /// Creates logger to log pipe data
+        /// </summary>
+        /// <returns></returns>
+        private ProtectedLoggerConfiguration CreateProtectedLoggerConfiguration()
+        {
+            var logger = new ProtectedLoggerConfiguration
+            {
+                DateFormat = "yyy-MM-dd",
+                DateTimeFormat = "HH:mm:ss",
+                LogCleanupTemplate = "rdc-games-*-*-*.log",
+                LogDirectory = "Logs",
+                LogTemplate = "rdc-games-{0}.log",
+                MessagesInBuffer = 30
+            };
+
+            return logger;
+        }
+
+        private void InitializeLogger()
+        {
+            var protectedLoggerConfiguration = CreateProtectedLoggerConfiguration();
+
+            protectedLogger = ServiceLocator.Current.GetInstance<IProtectedLogger>();
+            protectedLogger.Initialize(protectedLoggerConfiguration);
+            protectedLogger.CleanLogs();
         }
 
         private void LogPacket(byte[] data)

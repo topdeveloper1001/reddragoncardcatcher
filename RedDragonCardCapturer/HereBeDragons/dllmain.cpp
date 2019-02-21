@@ -5,19 +5,18 @@ namespace transport {
 HANDLE hPipe = INVALID_HANDLE_VALUE;
 LPCWSTR PIPE_NAME = L"\\\\.\\pipe\\RedDragon";
 
-HANDLE Init(LPCWSTR pipeName) {
-    auto handlePipe = CreateFileW(pipeName, GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, 0, nullptr);
+void Init() {
+    hPipe =
+        CreateFileW(PIPE_NAME, GENERIC_WRITE, FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, 0, nullptr);
 
-    assert(INVALID_HANDLE_VALUE != handlePipe);
-
-    return handlePipe;
+    assert(INVALID_HANDLE_VALUE != hPipe);
 }
 
 template <typename Pointer> void Send(const Pointer data, size_t len) {
     static_assert(std::is_pointer<Pointer>::value);
 
     if (INVALID_HANDLE_VALUE == hPipe) {
-        hPipe = Init(PIPE_NAME);
+        Init();
 
         if (INVALID_HANDLE_VALUE == hPipe) {
             return;
@@ -90,7 +89,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         }
 
         MessageBoxW(nullptr, L"", L"DEBUG ME", MB_OK);
-#endif
+#endif        
+        transport::Init();
 
         hook::Init();
 
@@ -114,7 +114,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
         DetourTransactionCommit();
 
-		transport::Cleanup();
+        transport::Cleanup();
 
         break;
     }

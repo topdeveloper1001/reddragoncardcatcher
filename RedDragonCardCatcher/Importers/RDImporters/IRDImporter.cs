@@ -14,6 +14,6 @@ namespace RedDragonCardCatcher.Importers
 {
     internal interface IRDImporter : IBaseImporter
     {
-        void AddPackage(byte[] data);
+        void AddPackage(PipeData pipeData);
     }
 }

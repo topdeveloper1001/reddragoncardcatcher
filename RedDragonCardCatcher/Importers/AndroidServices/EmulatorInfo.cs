@@ -40,6 +40,8 @@ namespace RedDragonCardCatcher.Importers
 
         public bool IsHooked { get; set; }
 
+        public IPipeServerJob PipeJob { get; set; }
+
         public bool IsInjected => InjectedProcessModule != null;
 
         public bool IsIdentified => !string.IsNullOrEmpty(AdbIdentifier);

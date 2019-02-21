@@ -68,7 +68,7 @@ namespace RedDragonCardCatcher
             //Container.RegisterType<INetworkConnectionsService, NetworkConnectionsService>();
 
             Container.RegisterType<IEmulatorService, EmulatorService>();
-            Container.RegisterType<IPipeReaderService, PipeReaderService>();
+            Container.RegisterType<IPipeServerJob, PipeServerJob>();
             Container.RegisterType<IDataManager, DataManager>();
             Container.RegisterType<IRDImporter, RDImporter>();
 
@@ -187,8 +187,7 @@ namespace RedDragonCardCatcher
         private void ConfigureImporters()
         {
             var importerService = ServiceLocator.Current.GetInstance<IImporterService>();
-            importerService.Register<IEmulatorService>();
-            importerService.Register<IPipeReaderService>();
+            importerService.Register<IEmulatorService>();            
             importerService.Register<IRDImporter>();
         }
     }

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IDataManager.cs" company="Ace Poker Solutions">
+// <copyright file="PipeData.cs" company="Ace Poker Solutions">
 // Copyright © 2019 Ace Poker Solutions. All Rights Reserved.
 // Unless otherwise noted, all materials contained in this Site are copyrights, 
 // trademarks, trade dress and/or other intellectual properties, owned, 
@@ -14,11 +14,10 @@ using System;
 
 namespace RedDragonCardCatcher.Importers
 {
-    /// <summary>
-    /// Data manager interface to process pipe data 
-    /// </summary>
-    internal interface IDataManager : IDisposable
+    internal class PipeData
     {
-        byte[] ProcessData(byte[] data);
+        public IntPtr WindowHandle { get; set; }
+
+        public byte[] Data { get; set; }
     }
 }

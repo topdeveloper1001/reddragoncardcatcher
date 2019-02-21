@@ -35,7 +35,6 @@ namespace RedDragonCardCatcher.Importers
         private int messageCounter = 0;
 
         private bool isInitialized = false;
-        private bool isStarted = false;
         private bool isAESKeyAdded = false;
 
         // random AES key and iv
@@ -96,9 +95,9 @@ namespace RedDragonCardCatcher.Importers
 
                 isInitialized = true;
             }
-            catch
+            catch (Exception e)
             {
-                LogProvider.Log.Error("Logger service has not been initialized.");
+                LogProvider.Log.Error(this, "Logger service has not been initialized.", e);
             }
         }
 
@@ -108,9 +107,15 @@ namespace RedDragonCardCatcher.Importers
         /// <param name="message">Message to be saved in log</param>
         public void Log(string message)
         {
-            if (!isInitialized || !isStarted)
+            if (!isInitialized ||
+                string.IsNullOrEmpty(message))
             {
                 return;
+            }
+
+            if (streamWriter == null)
+            {
+                InitializeStreamWriter();
             }
 
             try
@@ -146,13 +151,8 @@ namespace RedDragonCardCatcher.Importers
             }
         }
 
-        public void StartLogging()
+        private void InitializeStreamWriter()
         {
-            if (!isInitialized || isStarted)
-            {
-                return;
-            }
-
             try
             {
                 var logId = DateTime.Now.ToString(configuration.DateFormat, CultureInfo.InvariantCulture);
@@ -161,19 +161,17 @@ namespace RedDragonCardCatcher.Importers
                 var fileStream = new FileStream(logFile, FileMode.Append, FileAccess.Write, FileShare.Read);
                 streamWriter = new StreamWriter(fileStream, Encoding.UTF8, bufferSize);
 
-                isStarted = true;
-
                 messageCounter = 0;
             }
             catch (Exception e)
             {
-                LogProvider.Log.Error(this, "Stream logger wasn't started.", e);
+                LogProvider.Log.Error(this, "Failed to inialize stream writer of protected logger.", e);
             }
         }
 
         public void StopLogging()
         {
-            if (!isStarted || streamWriter == null)
+            if (streamWriter == null)
             {
                 return;
             }
@@ -188,8 +186,12 @@ namespace RedDragonCardCatcher.Importers
             {
                 LogProvider.Log.Error(this, "Stream logger wasn't properly closed.", e);
             }
-
-            isStarted = false;
+            finally
+            {
+                streamWriter.Dispose();
+                streamWriter = null;
+            }
+            
             isAESKeyAdded = false;
         }
 

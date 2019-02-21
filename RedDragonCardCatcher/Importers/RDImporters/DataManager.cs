@@ -10,7 +10,6 @@
 // </copyright>
 //----------------------------------------------------------------------
 
-using Microsoft.Practices.ServiceLocation;
 using RedDragonCardCatcher.Common.Log;
 using System;
 using System.IO;
@@ -24,33 +23,13 @@ namespace RedDragonCardCatcher.Importers
     /// </summary>
     internal sealed class DataManager : IDataManager
     {
-        private IProtectedLogger protectedLogger;
-        private readonly IRDImporter importer;
-
-        private AesManaged aesCryptoProvider;
-        private ICryptoTransform decryptor;
         private const string key = "82yz1tqyodnl7wlk";
         private const string iv = "8gw9gz6cknqgvqsw";
+        private readonly AesManaged aesCryptoProvider;
+        private readonly ICryptoTransform decryptor;
 
         public DataManager()
         {
-            var importerService = ServiceLocator.Current.GetInstance<IImporterService>();
-            importer = importerService.GetImporter<IRDImporter>();
-        }
-
-        /// <summary>
-        /// Initializes data manager
-        /// </summary>
-        /// <param name="logger">External protected logger to log data</param>
-        public void Initialize(IProtectedLogger logger)
-        {
-            protectedLogger = logger;
-
-            if (aesCryptoProvider != null)
-            {
-                return;
-            }
-
             aesCryptoProvider = new AesManaged
             {
                 Key = Encoding.UTF8.GetBytes(key),
@@ -60,55 +39,33 @@ namespace RedDragonCardCatcher.Importers
             decryptor = aesCryptoProvider.CreateDecryptor();
         }
 
-        /// <summary>
-        /// Processes incoming data
-        /// </summary>
-        /// <param name="data">Data to process</param>
-        public void ProcessData(byte[] data)
+        public byte[] ProcessData(byte[] data)
         {
             if (data == null || data.Length == 0)
             {
-                return;
+                return null;
             }
 
-            var decodedData = ConvertData(data);
-
-            if (decodedData == null)
-            {
-                return;
-            }
-
-            // Log stream data
-            protectedLogger?.Log(Convert.ToBase64String(decodedData));
-
-            // send data to importer 
-            importer.AddPackage(decodedData);
-        }
-
-        /// <summary>
-        /// Converts raw data to string
-        /// </summary>
-        /// <param name="data">Data to convert</param>
-        /// <returns>The result of conversion</returns>
-        private byte[] ConvertData(byte[] data)
-        {
             try
             {
-                var base64String = Encoding.UTF8.GetString(data).Trim();
+                var dataBase64String = Encoding.UTF8.GetString(data).Trim();
 
                 try
                 {
-                    return Convert.FromBase64String(base64String);
+                    var decryptedBase64String = Decrypt(dataBase64String);
+                    return Convert.FromBase64String(decryptedBase64String);
                 }
                 catch (FormatException e)
                 {
-                    LogProvider.Log.Error(this, $"Failed to decode base64 string from '{base64String}'", e);
+#if DEBUG
+                    LogProvider.Log.Error(this, $"Failed to process data '{dataBase64String}'.", e);
+#endif                
                     return null;
                 }
             }
             catch (Exception e)
             {
-                LogProvider.Log.Error(this, $"Failed to convert raw data to string.", e);
+                LogProvider.Log.Error(this, $"Failed to process data.", e);
                 return null;
             }
         }
@@ -120,6 +77,8 @@ namespace RedDragonCardCatcher.Importers
         /// <returns>Decrypted text</returns>
         private string Decrypt(string encryptedText)
         {
+            return encryptedText;
+
             try
             {
                 var encryptedData = Convert.FromBase64String(encryptedText);
@@ -142,9 +101,9 @@ namespace RedDragonCardCatcher.Importers
             catch (Exception e)
             {
 #if DEBUG
-                LogProvider.Log.Error($"Failed to process pipe data: {encryptedText}");
+                LogProvider.Log.Error($"Failed to decrypt data: {encryptedText}");
 #else
-                LogProvider.Log.Error("Failed to process pipe data.");
+                LogProvider.Log.Error("Failed to decrypt data.");
 #endif            
                 throw e;
             }

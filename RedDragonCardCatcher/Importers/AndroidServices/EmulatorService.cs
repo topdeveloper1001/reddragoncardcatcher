@@ -10,12 +10,12 @@
 // </copyright>
 //----------------------------------------------------------------------
 
+using Microsoft.Practices.ServiceLocation;
 using RedDragonCardCatcher.Common.Extensions;
 using RedDragonCardCatcher.Common.Linq;
 using RedDragonCardCatcher.Common.Log;
 using RedDragonCardCatcher.Common.Utils.Network;
 using RedDragonCardCatcher.Common.WinApi;
-using RedDragonCardCatcher.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,6 +64,11 @@ namespace RedDragonCardCatcher.Importers
         /// </summary>
         private const int EjectDllTimeout = 2000;
 
+        /// <summary>
+        /// Interval between main job runs 
+        /// </summary>
+        private const int MainJobInterval = 5000;
+
         public override string ImporterName => "Emulators Service";
 
         protected readonly Dictionary<int, EmulatorInfo> activeEmulators = new Dictionary<int, EmulatorInfo>();
@@ -82,7 +87,7 @@ namespace RedDragonCardCatcher.Importers
 
                     try
                     {
-                        Task.Delay(5000).Wait(cancellationTokenSource.Token);
+                        Task.Delay(MainJobInterval).Wait(cancellationTokenSource.Token);
                     }
                     catch (OperationCanceledException)
                     {
@@ -95,7 +100,13 @@ namespace RedDragonCardCatcher.Importers
                 LogProvider.Log.Error(this, "Failed to execute emulator service job.", e);
             }
 
-            activeEmulators.Values.ForEach(x => EjectDll(x));
+            activeEmulators.Values.ForEach(emulator =>
+            {
+                emulator.PipeJob?.Close();
+                EjectDll(emulator);
+            });
+
+            activeEmulators.Clear();
 
             RaiseProcessStopped();
         }
@@ -135,7 +146,7 @@ namespace RedDragonCardCatcher.Importers
 
                         activeEmulators.Add(process.Id, emulatorInfo);
 
-                        LogProvider.Log.Info(this, $"Added the instance of '{emulatorProvider.EmulatorName}' emulator with pid {process.Id} and main window {emulatorWindowHandle} to tracking dictionary.");
+                        LogProvider.Log.Info(this, $"Added the instance of '{emulatorProvider.EmulatorName}' emulator with pid {process.Id} and main window {emulatorWindowHandle} to tracker.");
                     }
                 }
             }
@@ -157,7 +168,10 @@ namespace RedDragonCardCatcher.Importers
 
                     activeEmulators.Remove(activeEmulator.Key);
 
-                    LogProvider.Log.Info(this, $"The instance of '{activeEmulator.Value.Provider.EmulatorName}' emulator with pid {activeEmulator.Key} has exited and was removed from tracking dictionary.");
+                    // remove pipe associated with that emulator
+                    activeEmulator.Value.PipeJob?.Close();
+
+                    LogProvider.Log.Info(this, $"The instance of '{activeEmulator.Value.Provider.EmulatorName}' emulator with pid {activeEmulator.Key} has exited and was removed from tracker.");
                 }
                 catch (Exception e)
                 {
@@ -171,23 +185,26 @@ namespace RedDragonCardCatcher.Importers
         /// </summary>
         protected void InjectDllIntoEmulators()
         {
-            var injectionTasks = new List<Task>();
-
             activeEmulators.Values
                    .Where(x => !x.IsInjected)
-                   .ForEach(emulatorInfo => injectionTasks.Add(Task.Run(() =>
+                   .ForEach(emulatorInfo =>
                    {
                        try
                        {
-                           InjectDll(emulatorInfo);
+                           var pipeJob = ServiceLocator.Current.GetInstance<IPipeServerJob>();
+                           pipeJob.Initialize(emulatorInfo);
+
+                           if (pipeJob.IsInitialized)
+                           {
+                               emulatorInfo.PipeJob = pipeJob;
+                               InjectDll(emulatorInfo);
+                           }
                        }
                        catch (Exception e)
                        {
                            LogProvider.Log.Error(this, $"Failed to inject into the instance of '{emulatorInfo.Provider.EmulatorName}' emulator with pid '{emulatorInfo.Process.Id}'", e);
                        }
-                   })));
-
-            Task.WhenAll(injectionTasks).Wait();
+                   });
         }
 
         /// <summary>

@@ -22,12 +22,7 @@ namespace RedDragonCardCatcher.Importers
         /// </summary>
         /// <param name="configuration">Logger configuration</param>
         void Initialize(ProtectedLoggerConfiguration configuration);
-
-        /// <summary>
-        /// Start writing in log
-        /// </summary>
-        void StartLogging();
-
+       
         /// <summary>
         /// Stop writing in log
         /// </summary>

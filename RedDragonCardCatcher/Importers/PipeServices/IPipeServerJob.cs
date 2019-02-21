@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IPipeReaderService.cs" company="Ace Poker Solutions">
+// <copyright file="PipeJob.cs" company="Ace Poker Solutions">
 // Copyright © 2019 Ace Poker Solutions. All Rights Reserved.
 // Unless otherwise noted, all materials contained in this Site are copyrights, 
 // trademarks, trade dress and/or other intellectual properties, owned, 
@@ -10,9 +10,18 @@
 // </copyright>
 //----------------------------------------------------------------------
 
+using System;
+
 namespace RedDragonCardCatcher.Importers
 {
-    internal interface IPipeReaderService : IBaseImporter
+    internal interface IPipeServerJob
     {
+        bool IsInitialized { get; }
+
+        IntPtr PipeServerHandle { get; }
+
+        void Initialize(EmulatorInfo emulator);
+
+        void Close();
     }
 }
