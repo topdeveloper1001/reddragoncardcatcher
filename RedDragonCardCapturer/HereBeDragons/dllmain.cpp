@@ -53,13 +53,11 @@ static int RTFileWrite_hook(HANDLE hFile, const char *buf, size_t cbToWrite, siz
     using str = std::string::traits_type;
 
     if (0 == str::compare(Signature.c_str(), buf, Signature.length())) {
-        uint32_t payload_len = 0;
-        const auto header_len = Signature.length() + sizeof payload_len;
+        uint32_t pid = 0;
+        memcpy(&pid, buf + Signature.length(), sizeof pid);
 
-        memcpy(&payload_len, buf + Signature.length(), sizeof(payload_len));
-
-        if (payload_len != 0) {
-            transport::Send(buf + header_len, payload_len);
+        if (pid != 0) {
+            transport::Send(buf + Signature.length(), cbToWrite - Signature.length());
         }
         *pcbWritten = cbToWrite;
         return 0;
