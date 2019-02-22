@@ -24,6 +24,8 @@ message Club {
     optional int32 roomCount = 23; 
     optional int32 clubRoomSwitch = 24; 
     required int32 masterScoreLock = 25;
+    required int32 platformRechargeSwitch = 26;
+    required int32 platformWithDrawSwitch = 27;
 }
 
 message ClubNamePriceReq{
@@ -110,6 +112,8 @@ message ChangeClubMasterScoreLockState {
 message ClubMasterScoreLockState {
     required uint32 clubId = 1;
     required int32 masterScoreLock = 2;
+    required int32 platformRechargeSwitch = 3;
+    required int32 platformWithDrawSwitch = 4;
 }
 
 message ProvideClubMasterScore {
@@ -439,7 +443,28 @@ message PlayerContributeToClubInfoReq{
 message PlayerContributeToClubInfoRes{
     optional uint32 score = 1;
     optional uint32 toHonor = 2;
-    optional float withdrawFee = 3;
+    optional string withdrawFee = 3;
+    optional uint64 checkScore = 4;
+}
+
+message ClubOrderInfoRequest {
+
+    required int32 type=1;
+}
+
+message ClubOrderInfoResponse {
+    repeated ClubOrderInfo orderInfos = 1;
+}
+
+message ClubOrderInfo{
+
+    required string orderId = 1;
+
+    required string time = 2;
+
+    required int64 amount = 3;
+
+    required int32 status = 4;
 }
 
 message NotifyPlayerRoomDestory {
@@ -1143,6 +1168,8 @@ message ErrorMsg {
         ErrBringOutNotAllow=2045;                
         ErrBringOutBankRollType=2046;            
         ErrBringOutPlayerInAction=2047;          
+        ErrAofPlayerAction=2048;                  
+        ErrAOFGoldNotEnough=2049;                  
 
         ErrReplayNotFound = 3000;               
         ErrGetReplayList = 3001;                
@@ -1352,6 +1379,10 @@ message ErrorMsg {
         ErrDrawCount = 10017;
 
         ErrRedPacketActivityOver = 10018;
+
+        ErrBankCardUsedExceed3 = 10019;
+
+        ErrGetClubOrderInfo = 10020;
     }
     optional Codes codes = 1 [default = Ok];
     optional string msg = 2;
@@ -1961,6 +1992,8 @@ message RedPacketWithMoneyResponse {
     required int32 templateId = 1;
     required int64 count = 2;
     required int32 playerId = 3;
+
+    required int32 type = 4;
 }
 
 message NotifyPlayerBonus {
@@ -2123,6 +2156,11 @@ message MallPaymentNotify {
     optional int64 masterscore = 5;
 }
 
+message UnbindBankInfoNotify {
+
+    required string cardId = 1;
+}
+
 enum TransactionType {
     GRANT = 1; 
     CONTRIBUTION = 2; 
@@ -2156,6 +2194,7 @@ enum TransactionType {
     LOWER_CLUB_CONTRIBUTED = 31;
     HONOR_CLUB_COST = 32;
     HONOR_CLUB_ADD = 33;
+    CLUB_WITHDRAW = 34;
 }
 
 message MasterScoreRecord {
@@ -2941,6 +2980,9 @@ message Player {
     optional int32 cardbackStyle = 32;
     optional int32 tablebackStyle = 33;
     required bool hasWalletPwd = 34;
+    optional bool modifyReward=35;
+    optional int32 itemTempId=36;
+    optional int32 modifyRewardCount=37;
 }
 
 message ModifyPlayerInfoCost {
@@ -3067,6 +3109,14 @@ message PlayerConnectRequest {
     required string deviceId = 2; 
 
     required string deviceType = 3;
+
+    optional string imei = 4;
+
+    optional string hardWare = 5;
+
+    optional string gps = 6;
+
+    optional string ip = 7;
 }
 
 message PlayerConnectResponse {
@@ -3100,6 +3150,9 @@ message PlayerEditResponse {
     repeated ModifyPlayerInfoCost modifyCost = 2;
 
     repeated ModifyPlayerInfoCost nextModifyCost = 3;
+
+    optional bool hasSendReward=4;
+
 }
 
 message PlayerInfoRequest {
@@ -3526,6 +3579,7 @@ message ConnectRoomServerResponse {
     required int32 roomType = 6;
 
     required int32 playType = 7;
+
 }
 
 message HeartbeatRequest {
@@ -3624,6 +3678,8 @@ message JoinRoomResponse {
     required int32 canBringOut = 35;
     required float minKeepMultiple = 36;
     required float bringOutMultiple = 37;
+    optional int32 handCount = 38;
+
 }
 
 message JoinSNGRoomRequest{
@@ -4406,6 +4462,8 @@ message ActionRequest{
     required int32 sitId = 3;
 
     required int64 gold = 4;
+
+    optional int32 handCount = 5;
 }
 
 message ReconnectionRequest{
@@ -4528,6 +4586,7 @@ message ReconnectionResponse{
     required int32 canBringOut = 56;
     required float minKeepMultiple = 57;
     required float bringOutMultiple = 58;
+
 }
 
 message ReconnectionSitInfo {
@@ -4926,6 +4985,36 @@ message BringOutResponse {
     required int64 count = 5; 
     required int32 bankRollType = 6; 
     required int32 status = 7; 
+}
+
+message NotifyAutoBringIn {
+
+    required int32 roomId = 1;
+
+    required int32 gameId = 2;
+
+    required int32 sitId = 3;
+
+    required int64 BringIn = 4;
+
+    required int32 playerId = 5;
+    required int32 bankRollType = 6; 
+    optional int32 aof = 7; 
+}
+
+message NotifyAutoBringOut {
+
+    required int32 roomId = 1;
+
+    required int32 gameId = 2;
+
+    required int32 sitId = 3;
+
+    required int64 bringOut = 4;
+
+    required int32 playerId = 5;
+    required int32 bankRollType = 6; 
+    optional int32 aof = 7; 
 }
 
 message RankInfo{
@@ -5536,6 +5625,8 @@ message RecordDetailResponse{
     required int64 sb = 25;
 
     optional int32 clubRoom=26;
+    optional int64 ante=27;
+    optional int32 playType=28;
 }
 
 message RecordDetailInfo{
@@ -5581,6 +5672,18 @@ message RedPacketActivityRequest {
 
 message RedPacketActivityResponse {
     required int32 show = 1; 
+}
+
+message GetSelfLatestRedPacketRecordRequest {
+    required int32 playerId = 1; 
+}
+
+message GetSelfLatestRedPacketRecordResponse {
+    required string playerName = 1; 
+    required string playerIcon = 2; 
+    required int32 playerId = 3; 
+    required int64 money = 4; 
+    required string time = 5; 
 }
 
 message ReplayRequest {
@@ -5763,7 +5866,15 @@ message Room {
     required int32 playType = 37;
     optional int32 privateRoom = 38;
     optional int32 floatRewardItemId=39;
-    optional string endTime=40;
+
+    optional int32 bankRollType = 40;
+
+    optional int64 bankRoll = 41;
+    optional int32 aof=42;
+    optional int32 showHandCard=43;
+    optional int32 takeProType=44;
+
+    optional string endTime=45;
 }
 
 message CommonRoomListRequest {
@@ -5774,28 +5885,23 @@ message CommonRoomListRequest {
 
     optional bool hideFull = 3;
 
-    optional bool hideEmpty = 4;
+    optional int32 straddle = 4;
 
-    repeated RoomFilterPlayerCount playCount = 5;
+    optional int64 version = 5;
 
-    repeated RoomFilterRestTime restTime = 6;
+    required int32 startRoomId = 6;
 
-    repeated RoomTemple roomTemple = 7;
+    repeated int64 bb = 7;
 
-    repeated int64 bb = 8;
+    repeated int64 shortAnte = 8;
 
-    optional int32 ante = 9;
+    optional int32 straddleOmh = 9;
 
-    optional int32 straddle = 10;
+    repeated int64 bbOmh = 10;
 
-    required int32 startRoomId = 11;
+    required int32 filterType = 11;
 
-    optional int64 version = 12;
-
-    repeated string shortAnte = 13;
-
-    optional bool isFilter = 14;
-
+    required int32 especialPlayType = 12;
 }
 
 message CommonRoomListResponse {
@@ -6294,6 +6400,8 @@ message BankCardResponse{
     required string bankName = 4;
     required string trueName = 5;
     required uint32 drawCount = 6;
+    required string drawFee = 7;
+    required string honor2Score = 8;
 }
 
 message OpenWalletDrawRequest{
@@ -6308,6 +6416,8 @@ message OpenWalletDrawResponse{
     optional string bankName = 5;
     optional string trueName = 6;
     optional uint32 drawCount = 7;
+    required string drawFee = 8;
+    required string honor2Score = 9;
 }
 
 message DrawRequest{
