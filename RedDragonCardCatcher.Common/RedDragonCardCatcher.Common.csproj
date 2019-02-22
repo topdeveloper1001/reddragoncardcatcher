@@ -58,6 +58,7 @@
     <Compile Include="Exceptions\LocalizableException.cs" />
     <Compile Include="Exceptions\RDCCInternalException.cs" />
     <Compile Include="Extensions\ConcurrentCollectionExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\ReaderWriterLockSlimExtensions.cs" />
     <Compile Include="Extensions\SerializationHelper.cs" />

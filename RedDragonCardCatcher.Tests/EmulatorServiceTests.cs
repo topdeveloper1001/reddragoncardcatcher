@@ -24,7 +24,7 @@ namespace RedDragonCardCatcher.Tests
         /// Tests whenever emulators are correctly identified, this tests requires to run emulators manually, 
         /// then set correct pids and identifiers for test data set, so it can be used in automated test suit, but can be used for debugging purpose
         /// </summary>
-        [TestCaseSource("GetEmulatorsTestData")]
+        // [TestCaseSource("GetEmulatorsTestData")]
         public void EmulatorsAreIdentified(List<ExpectedEmulatorInfo> expectedEmulatorInfos)
         {
             var emulatorService = new EmulatorServiceStub();

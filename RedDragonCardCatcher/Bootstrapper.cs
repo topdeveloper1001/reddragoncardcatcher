@@ -58,19 +58,12 @@ namespace RedDragonCardCatcher
 
             Container.RegisterType<ILogCollector, LogCollector>();
             Container.RegisterType<IHandHistoryFileService, HandHistoryFileService>();
-
-            //Container.RegisterType<ITableWindowProvider, TableWindowProvider>();
-            //Container.RegisterType<ITcpImporter, TcpImporter>();
-            //Container.RegisterType<IPPPImporter, PPPImporter>();
-            //Container.RegisterType<IPPPHandBuilder, PPPHandBuilder>();
-            //Container.RegisterType<IPackageBuilder<PPPokerPackage>, PPPokerPackageBuilder>();
-            //Container.RegisterType<IPacketManager<PPPokerPackage>, PPPokerPacketManager>();            
-            //Container.RegisterType<INetworkConnectionsService, NetworkConnectionsService>();
-
+      
             Container.RegisterType<IEmulatorService, EmulatorService>();
             Container.RegisterType<IPipeServerJob, PipeServerJob>();
             Container.RegisterType<IDataManager, DataManager>();
             Container.RegisterType<IRDImporter, RDImporter>();
+            Container.RegisterType<IRDHandBuilder, RDHandBuilder>();
 
             Container.RegisterType<IPT4Configurator, PT4Configurator>();
 
@@ -187,7 +180,7 @@ namespace RedDragonCardCatcher
         private void ConfigureImporters()
         {
             var importerService = ServiceLocator.Current.GetInstance<IImporterService>();
-            importerService.Register<IEmulatorService>();            
+            importerService.Register<IEmulatorService>();
             importerService.Register<IRDImporter>();
         }
     }

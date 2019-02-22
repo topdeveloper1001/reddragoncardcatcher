@@ -223,7 +223,9 @@
     <Compile Include="Importers\PT4Service.cs" />
     <Compile Include="Importers\RDImporters\DataManager.cs" />
     <Compile Include="Importers\RDImporters\IDataManager.cs" />
+    <Compile Include="Importers\RDImporters\IRDHandBuilder.cs" />
     <Compile Include="Importers\RDImporters\IRDImporter.cs" />
+    <Compile Include="Importers\RDImporters\RDHandBuilder.cs" />
     <Compile Include="Importers\RDImporters\RDImporter.cs" />
     <Compile Include="Licensing\DeployLXLicensingServer.cs" />
     <Compile Include="Licensing\IBaseLicenseInfo.cs" />
@@ -242,6 +244,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\GeneratedModels.cs" />
+    <Compile Include="Model\RDHandActionType.cs" />
+    <Compile Include="Model\RDPackageTypeEnumerator.cs" />
+    <Compile Include="Model\RDPackage.cs" />
+    <Compile Include="Model\RDPackageType.cs" />
+    <Compile Include="Model\RDRoomInfo.cs" />
     <Compile Include="Overlays\CustomWin32Window.cs" />
     <Compile Include="Overlays\CustomWindowClassHelper.cs" />
     <Compile Include="Overlays\RDOverlayWindow.cs" />
@@ -439,8 +447,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

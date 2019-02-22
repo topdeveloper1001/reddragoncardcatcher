@@ -10,28 +10,57 @@
 // </copyright>
 //----------------------------------------------------------------------
 
+using HandHistories.Objects.Hand;
+using HandHistories.Objects.Players;
 using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using RedDragonCardCatcher.Common.Extensions;
+using RedDragonCardCatcher.Common.Linq;
 using RedDragonCardCatcher.Common.Log;
-using RedDragonCardCatcher.Settings;
+using RedDragonCardCatcher.Licensing;
+using RedDragonCardCatcher.Model;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RedDragonCardCatcher.Importers
 {
-    internal sealed class RDImporter : BaseImporter, IRDImporter
+    internal class RDImporter : BaseImporter, IRDImporter
     {
         private const int NoDataDelay = 200;
         private const int ShowPreHUDDelay = 2500;
+        private const int DelayToProcessHands = 2000;
         private readonly BlockingCollection<PipeData> packetBuffer = new BlockingCollection<PipeData>();
         private IProtectedLogger protectedLogger;
+        private IDatabaseService databaseService;
+        private readonly ILicenseService licenseService;
 
         public override string ImporterName => "RDImporter";
+
+#if DEBUG        
+        private Dictionary<RDPackageType, MethodInfo> LogPackageMapping { get; } = new Dictionary<RDPackageType, MethodInfo>();
+#endif
+
+        public RDImporter()
+        {
+            licenseService = ServiceLocator.Current.GetInstance<ILicenseService>();
+#if DEBUG
+            RDPackageTypeEnumerator.ForEach((RDPackageType enumValue, Type packageObjectType) =>
+            {
+                Action<RDPackage> action = LogPackage<HeartbeatResponse>;
+                MethodInfo method = action.Method.GetGenericMethodDefinition();
+                MethodInfo generic = method.MakeGenericMethod(packageObjectType);
+
+                LogPackageMapping[enumValue] = generic;
+            });
+#endif
+        }
 
         public void AddPackage(PipeData pipeData)
         {
@@ -47,6 +76,8 @@ namespace RedDragonCardCatcher.Importers
         {
             try
             {
+                InitializeLogger();
+                InitializeSettings();
                 ProcessBuffer();
             }
             catch (Exception e)
@@ -61,11 +92,25 @@ namespace RedDragonCardCatcher.Importers
         }
 
         /// <summary>
+        /// Reads settings and initializes importer variables
+        /// </summary>
+        private void InitializeSettings()
+        {
+            var settings = Settings.GetSettings();
+
+            databaseService = ServiceLocator.Current.GetInstance<IDatabaseService>(settings.Database.ToString());
+            databaseService.IsAdvancedLogEnabled = settings.IsAdvancedLoggingEnabled;
+        }
+
+        /// <summary>
         /// Processes buffer data
         /// </summary>
         private void ProcessBuffer()
         {
             var dataManager = ServiceLocator.Current.GetInstance<IDataManager>();
+            var handBuilder = ServiceLocator.Current.GetInstance<IRDHandBuilder>();
+            var detectedTables = new HashSet<IntPtr>();
+            var handHistoriesToProcess = new ConcurrentDictionary<long, List<HandHistoryData>>();
 
             while (!cancellationTokenSource.IsCancellationRequested)
             {
@@ -78,8 +123,70 @@ namespace RedDragonCardCatcher.Importers
                     }
 
                     var data = dataManager.ProcessData(capturedData.Data);
+#if DEBUG
+                    LogPacket(capturedData);
+#endif
+                    if (!RDPackage.TryParse(data, out RDPackage package))
+                    {
+                        continue;
+                    }
 
-                    LogPacket(data);
+                    if (!IsAllowedPackage(package))
+                    {
+                        continue;
+                    }
+
+                    LogPackage(package, capturedData.WindowHandle);
+
+                    if (!detectedTables.Contains(capturedData.WindowHandle))
+                    {
+                        detectedTables.Add(capturedData.WindowHandle);
+
+                        if (package.PackageType == RDPackageType.JoinRoomResponse ||
+                            package.PackageType == RDPackageType.JoinSNGRoomResponse ||
+                            package.PackageType == RDPackageType.JoinMTTRoomResponse
+                            || handBuilder.IsRoomInfoAvailable(capturedData.WindowHandle))
+                        {
+                            LogProvider.Log.Info(this, $"User entered room. [{capturedData.WindowHandle}]");
+                            databaseService.SendShowHUDRequest("Notifications_HudLayout_PreLoadingText_Init", capturedData.WindowHandle);
+                        }
+                        else
+                        {
+                            LogProvider.Log.Info(this, $"Room was opened before catcher. Data can't be captured. [{capturedData.WindowHandle}]");
+                            databaseService.SendWarningRequest("Notifications_HudLayout_PreLoadingText_CanNotBeCapturedText", capturedData.WindowHandle);
+                        }
+                    }
+
+                    if (handBuilder.TryBuild(package, capturedData.WindowHandle, out HandHistory handHistory))
+                    {
+                        LogProvider.Log.Info(this, $"Hand #{handHistory.HandId} captured: tablename={handHistory.TableName}, room={handHistory.GameDescription?.Identifier},windows={capturedData.WindowHandle}.");
+
+                        var handHistoryData = new HandHistoryData
+                        {
+                            Uuid = capturedData.WindowHandle.ToInt32(),
+                            HandHistory = handHistory,
+                            WindowHandle = capturedData.WindowHandle
+                        };
+
+                        if (!licenseService.IsMatch(handHistory))
+                        {
+                            LogProvider.Log.Info(this, $"License doesn't support cash hand #{handHistory.HandId}. BB={handHistory.GameDescription.Limit.BigBlind} [{capturedData.WindowHandle}]");
+                            databaseService.SendWarningRequest("Notifications_HudLayout_PreLoadingText_NoLicense", capturedData.WindowHandle);
+                            continue;
+                        }
+
+                        ExportHandHistory(handHistoryData, handHistoriesToProcess);
+                    }
+
+                    if (package.PackageType == RDPackageType.OutRoomResponse ||
+                        package.PackageType == RDPackageType.OutSngRoomResponse ||
+                        package.PackageType == RDPackageType.AdvOutRoomResponse)
+                    {
+                        LogProvider.Log.Info(this, $"User left room. [{capturedData.WindowHandle}]");
+
+                        SendCloseHUDRequest(capturedData.WindowHandle);
+                        detectedTables.Remove(capturedData.WindowHandle);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -90,6 +197,89 @@ namespace RedDragonCardCatcher.Importers
             protectedLogger?.StopLogging();
         }
 
+        private static bool IsAllowedPackage(RDPackage package)
+        {
+            switch (package.PackageType)
+            {
+                case RDPackageType.RoomUpdateResponse:
+                case RDPackageType.CommonRoomListResponse:
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Exports captured hand history to the supported DB
+        /// </summary>
+        private void ExportHandHistory(HandHistoryData handHistoryData, ConcurrentDictionary<long, List<HandHistoryData>> handHistoriesToProcess)
+        {
+            var handId = handHistoryData.HandHistory.HandId;
+
+            if (!handHistoriesToProcess.TryGetValue(handId, out List<HandHistoryData> handHistoriesData))
+            {
+                handHistoriesData = new List<HandHistoryData>();
+                handHistoriesToProcess.AddOrUpdate(handId, handHistoriesData, (key, prev) => handHistoriesData);
+
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        Task.Delay(DelayToProcessHands).Wait(cancellationTokenSource.Token);
+                        ExportHandHistory(handHistoriesData.ToList());
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return;
+                    }
+                    finally
+                    {
+                        handHistoriesToProcess.TryRemove(handId, out List<HandHistoryData> removedData);
+                    }
+                });
+            }
+
+            handHistoriesData.Add(handHistoryData);
+        }
+
+        /// <summary>
+        /// Exports captured hand history to the supported DB
+        /// </summary>
+        private void ExportHandHistory(List<HandHistoryData> handHistories)
+        {
+            // merge hands
+            var playerWithHoleCards = handHistories
+                .SelectMany(x => x.HandHistory.Players)
+                .Where(x => x.hasHoleCards)
+                .DistinctBy(x => x.SeatNumber)
+                .ToDictionary(x => x.SeatNumber, x => x.HoleCards);
+
+            foreach (var handHistoryData in handHistories)
+            {
+                handHistoryData.HandHistory.Players.ForEach(player =>
+                {
+                    if (!player.hasHoleCards && playerWithHoleCards.ContainsKey(player.SeatNumber))
+                    {
+                        player.HoleCards = playerWithHoleCards[player.SeatNumber];
+                    }
+                });
+
+                handHistoryData.HandHistory.Players = GetPlayerList(handHistoryData.HandHistory);
+
+#if DEBUG
+                var handHistoryText = SerializationHelper.SerializeObject(handHistoryData.HandHistory);
+
+                if (!Directory.Exists("Hands"))
+                {
+                    Directory.CreateDirectory("Hands");
+                }
+
+                File.WriteAllText($"Hands\\hand_exported_{handHistoryData.Uuid}_{handHistoryData.HandHistory.HandId}.xml", handHistoryText);
+#endif
+
+                databaseService.Import(handHistoryData);
+            }
+        }
 
         /// <summary>
         /// Creates logger to log pipe data
@@ -110,6 +300,9 @@ namespace RedDragonCardCatcher.Importers
             return logger;
         }
 
+        /// <summary>
+        /// Initializes logger
+        /// </summary>
         private void InitializeLogger()
         {
             var protectedLoggerConfiguration = CreateProtectedLoggerConfiguration();
@@ -119,27 +312,143 @@ namespace RedDragonCardCatcher.Importers
             protectedLogger.CleanLogs();
         }
 
-        private void LogPacket(byte[] data)
+        private void SendCloseHUDRequest(IntPtr windowHandle)
         {
-            var packageFileName = "Logs\\raw-log.txt";
+            // add delay
+            Task.Run(() =>
+            {
+                Task.Delay(DelayToProcessHands * 2).Wait();
+                databaseService.SendCloseHUDRequest(new[] { windowHandle });
+            });
+        }
+
+        private readonly Dictionary<int, int> autoCenterSeats = new Dictionary<int, int>
+        {
+            { 2, 2 },
+            { 3, 2 },
+            { 6, 3 },
+            { 9, 5 }
+        };
+
+        private PlayerList GetPlayerList(HandHistory handHistory)
+        {
+            var playerList = handHistory.Players;
+
+            var maxPlayers = handHistory.GameDescription.SeatType.MaxPlayers;
+
+            var heroSeat = handHistory.Hero != null ? handHistory.Hero.SeatNumber : 0;
+
+            if (heroSeat != 0 && autoCenterSeats.ContainsKey(maxPlayers))
+            {
+                var prefferedSeat = autoCenterSeats[maxPlayers];
+
+                var shift = (prefferedSeat - heroSeat) % maxPlayers;
+
+                foreach (var player in playerList)
+                {
+                    player.SeatNumber = ShiftPlayerSeat(player.SeatNumber, shift, maxPlayers);
+                }
+
+                handHistory.DealerButtonPosition = ShiftPlayerSeat(handHistory.DealerButtonPosition, shift, maxPlayers);
+            }
+
+            return playerList;
+        }
+
+        private static int ShiftPlayerSeat(int seat, int shift, int tableType)
+        {
+            return (seat + shift + tableType - 1) % tableType + 1;
+        }
+
+        private void LogPackage(RDPackage package, IntPtr windowHandle)
+        {
+#if DEBUG
+            if (LogPackageMapping.ContainsKey(package.PackageType))
+            {
+                LogPackageMapping[package.PackageType].Invoke(this, new object[] { package });
+                return;
+            }
+#else
+            try
+            {
+                using (var ms = new MemoryStream())
+                {
+                    Serializer.Serialize(ms, package);
+                    var packageBytes = ms.ToArray();
+
+                    var logText = Convert.ToBase64String(packageBytes);
+                    protectedLogger.Log(logText);
+                }
+            }
+            catch (Exception e)
+            {
+                LogProvider.Log.Error(this, $"Failed to log package '{package.PackageType}'", e);
+            }
+#endif
+        }
+
+#if DEBUG
+        private void LogPackage<T>(RDPackage package)
+        {
+            try
+            {
+                if (package.PackageType == RDPackageType.HeartbeatResponse ||
+                    package.PackageType == RDPackageType.HeartbeatRequest)
+                {
+                    return;
+                }
+
+                if (!SerializationHelper.TryDeserialize(package.Body, out T packageContent))
+                {
+                    LogProvider.Log.Warn(this, $"Failed to deserialize {typeof(T)} package");
+                }
+
+                var packageJson = new PackageJson<T>
+                {
+                    PackageType = package.PackageType,
+                    Content = packageContent,
+                    Time = DateTime.Now
+                };
+
+                var json = JsonConvert.SerializeObject(packageJson, Formatting.Indented, new StringEnumConverter());
+
+                protectedLogger.Log(json);
+            }
+            catch (Exception e)
+            {
+                LogProvider.Log.Error(this, $"Failed to log package '{package.PackageType}'", e);
+            }
+        }
+
+        private void LogPacket(PipeData pipeData)
+        {
+            var packageFileName = $"Logs\\raw-log-{pipeData.WindowHandle}.txt";
 
             var sb = new StringBuilder();
             sb.AppendLine("-----------begin----------------");
             sb.AppendLine($"Date Now: {DateTime.Now}");
             sb.AppendLine($"Date Now (ticks): {DateTime.Now.Ticks}");
-            sb.AppendLine($"Packet Current Length: {data.Length}");
+            sb.AppendLine($"Packet Current Length: {pipeData.Data.Length}");
             sb.AppendLine($"Body:");
             sb.AppendLine("---------body begin-------------");
-            sb.AppendLine(BitConverter.ToString(data).Replace("-", " "));
+            sb.AppendLine(BitConverter.ToString(pipeData.Data).Replace("-", " "));
             sb.AppendLine("----------body end--------------");
-#if DEBUG
-            sb.AppendLine("--------------ascii-------------");
-            sb.AppendLine(Encoding.UTF8.GetString(data.ToArray()));
+            sb.AppendLine("--------------ascii begin-------------");
+            sb.AppendLine(Encoding.UTF8.GetString(pipeData.Data.ToArray()));
             sb.AppendLine("------------ascii end-----------");
-#endif
             sb.AppendLine("------------end-----------------");
 
             File.AppendAllText(packageFileName, sb.ToString());
         }
+
+        private class PackageJson<T>
+        {
+            public RDPackageType PackageType { get; set; }
+
+            public DateTime Time { get; set; }
+
+            public T Content { get; set; }
+        }
+#endif
     }
 }
