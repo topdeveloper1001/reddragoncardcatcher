@@ -26,6 +26,9 @@ namespace RedDragonCardCatcher.Model
         [ProtoMember(2)]
         public byte[] Body { get; set; }
 
+        [ProtoMember(3)]
+        public DateTime Timestamp { get; set; }
+
         public static bool TryParse(byte[] data, out RDPackage package)
         {
             package = null;
@@ -68,7 +71,8 @@ namespace RedDragonCardCatcher.Model
                 package = new RDPackage
                 {
                     PackageType = packageType,
-                    Body = body
+                    Body = body,
+                    Timestamp = DateTime.UtcNow
                 };
 
                 return true;

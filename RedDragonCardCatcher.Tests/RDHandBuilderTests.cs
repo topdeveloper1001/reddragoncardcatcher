@@ -11,6 +11,7 @@
 //----------------------------------------------------------------------
 
 using HandHistories.Objects.Hand;
+using Microsoft.QualityTools.Testing.Fakes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NUnit.Framework;
@@ -24,6 +25,7 @@ using RedDragonCardCatcher.Services;
 using RedDragonCardCatcher.Tests.Utils;
 using System;
 using System.Collections.Generic;
+using System.Fakes;
 using System.IO;
 using System.Reflection;
 
@@ -95,9 +97,14 @@ namespace RedDragonCardCatcher.Tests
 
             foreach (var package in packages)
             {
-                if (builder.TryBuild(package, hwnd, out history))
+                using (ShimsContext.Create())
                 {
-                    break;
+                    ShimDateTime.UtcNowGet = () => package.Timestamp;
+
+                    if (builder.TryBuild(package, hwnd, out history))
+                    {
+                        break;
+                    }
                 }
             }
         }
@@ -150,6 +157,7 @@ namespace RedDragonCardCatcher.Tests
                 if (BuildPackageMapping.ContainsKey(packet.PackageType))
                 {
                     package = (RDPackage)BuildPackageMapping[packet.PackageType].Invoke(this, new object[] { packet });
+                    package.Timestamp = packet.Time.ToUniversalTime();
                 }
 
                 Assert.IsNotNull(package);
@@ -174,7 +182,8 @@ namespace RedDragonCardCatcher.Tests
                 var package = new RDPackage
                 {
                     PackageType = packet.PackageType,
-                    Body = bytes
+                    Body = bytes,
+                    Timestamp = packet.Time.ToUniversalTime()
                 };
 
                 return package;

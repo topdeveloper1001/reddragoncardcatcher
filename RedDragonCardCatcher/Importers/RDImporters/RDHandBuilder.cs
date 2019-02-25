@@ -89,7 +89,7 @@ namespace RedDragonCardCatcher.Importers
                 {
                     if (package.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse)
                     {
-                        var dateOfHandUtc = DateTime.UtcNow;
+                        var dateOfHandUtc = package.Timestamp;
 
                         history = new HandHistory
                         {
@@ -110,7 +110,22 @@ namespace RedDragonCardCatcher.Importers
                     switch (package.PackageType)
                     {
                         case RDPackageType.PlayerCallResponse:
-                            ParsePackage<PlayerCallResponse>(package, response => ProcessPlayerCallResponse(response, roomInfo, history));
+                            ParsePackage<PlayerCallResponse>(package, response => ProcessPlayerCallResponse(response.doPlayerCallResponse, roomInfo, history));
+                            break;
+                        case RDPackageType.PlayerFoldResponse:
+                            ParsePackage<PlayerFoldResponse>(package, response => ProcessPlayerFoldResponse(response.doPlayerFoldResponse, roomInfo, history));
+                            break;
+                        case RDPackageType.PlayerCheckResponse:
+                            ParsePackage<PlayerCheckResponse>(package, response => ProcessPlayerCheckResponse(response.doPlayerCheckResponse, roomInfo, history));
+                            break;
+                        case RDPackageType.PlayerRaiseResponse:
+                            ParsePackage<PlayerRaiseResponse>(package, response => ProcessPlayerRaiseResponse(response.doPlayerRaiseResponse, roomInfo, history));
+                            break;
+                        case RDPackageType.NotifyFlopRoundResponse:
+                            ParsePackage<NotifyFlopRoundResponse>(package, response => ProcessNotifyFlopRoundResponse(response, roomInfo, history));
+                            break;
+                        case RDPackageType.NotifyGainsResponse:
+                            ParsePackage<NotifyGainsResponse>(package, response => ProcessNotifyGainsResponse(response, roomInfo, history));
                             break;
 
                     }
@@ -211,9 +226,9 @@ namespace RedDragonCardCatcher.Importers
             }
         }
 
-        private void ProcessPlayerCallResponse(PlayerCallResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        private void ProcessPlayerCallResponse(DoPlayerCallResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
         {
-            var actionType = (RDHandActionType)response.doPlayerCallResponse.Action;
+            var actionType = (RDHandActionType)response.Action;
             var handActionType = ConvertRDHandActionTypeToHandActionType(actionType);
 
             if (handActionType == HandActionType.UNKNOWN)
@@ -222,12 +237,102 @@ namespace RedDragonCardCatcher.Importers
                 return;
             }
 
-            var action = new HandAction(response.doPlayerCallResponse.playerId.ToString(),
+            var playerName = response.playerId.ToString();
+            var street = handHistory.CommunityCards.Street;
+            var amount = (handActionType == HandActionType.CHECK) ? 0 : response.Bet - GetPutInPotAmount(playerName, handHistory, street);
+
+            var action = new HandAction(playerName,
                 handActionType,
+                amount,
+                street);
+
+            handHistory.HandActions.Add(action);
+        }
+
+        private void ProcessPlayerFoldResponse(DoPlayerFoldResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        {
+            var action = new HandAction(response.playerId.ToString(),
+                HandActionType.FOLD,
                 0,
                 handHistory.CommunityCards.Street);
 
             handHistory.HandActions.Add(action);
+        }
+
+        private void ProcessPlayerCheckResponse(DoPlayerCheckResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        {
+            var action = new HandAction(response.playerId.ToString(),
+                  HandActionType.CHECK,
+                  0,
+                  handHistory.CommunityCards.Street);
+
+            handHistory.HandActions.Add(action);
+        }
+
+        private void ProcessPlayerRaiseResponse(DoPlayerRaiseResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        {
+            var actionType = (RDHandActionType)response.Action;
+            var handActionType = ConvertRDHandActionTypeToHandActionType(actionType);
+
+            if (handActionType == HandActionType.UNKNOWN)
+            {
+                LogProvider.Log.Warn($"Unknown raise response action is detected. Hand #{handHistory.HandId}");
+                return;
+            }
+
+            var playerName = response.playerId.ToString();
+            var street = handHistory.CommunityCards.Street;
+
+            var action = new HandAction(playerName,
+                handActionType,
+                response.Bet - GetPutInPotAmount(playerName, handHistory, street),
+                street);
+
+            handHistory.HandActions.Add(action);
+        }
+
+        private void ProcessNotifyFlopRoundResponse(NotifyFlopRoundResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        {
+            ProcessPlayerCallResponse(response.doPlayerCallResponse, roomInfo, handHistory);
+
+            foreach (var card in response.Cards)
+            {
+                handHistory.CommunityCards.Add(ParseCard(card));
+            }
+        }
+
+        private void ProcessNotifyGainsResponse(NotifyGainsResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        {
+            ProcessPlayerCallResponse(response.doPlayerCallResponse, roomInfo, handHistory);
+
+            foreach (var gainInfo in response.playerGainsInfoes)
+            {
+                var player = handHistory.Players.FirstOrDefault(x => x.PlayerName == gainInfo.playerId.ToString());
+
+                if (player == null)
+                {
+                    throw new RDCCInternalException(new NonLocalizableString($"Failed to find player {gainInfo.playerId} from gain info in list of players."));
+                }
+
+                if (gainInfo.handCard != null)
+                {
+                    player.Cards = string.Join(string.Empty, gainInfo.handCard.Cards.Select(x => ParseCard(x)));
+                }
+
+                var putInPot = Math.Abs(handHistory.HandActions.Where(x => x.PlayerName == player.PlayerName).Sum(x => x.Amount));
+                var won = gainInfo.Gains + putInPot;
+
+                if (won > 0)
+                {
+                    handHistory.HandActions.Add(new WinningsAction(
+                        player.PlayerName,
+                         HandActionType.WINS,
+                         won,
+                         0));
+
+                    player.Win = won;
+                }
+            }
         }
 
         private void AdjustHandHistory(HandHistory history)
@@ -326,6 +431,32 @@ namespace RedDragonCardCatcher.Importers
             }
 
             return HandActionType.UNKNOWN;
+        }
+
+        private HandHistories.Objects.Cards.Card ParseCard(Model.Card card)
+        {
+            if (!CardsMap.TryGetValue(card.cardNumber, out string rank))
+            {
+                rank = card.cardNumber.ToString();
+            }
+
+            return HandHistories.Objects.Cards.Card.Parse($"{rank}{card.cardSuit[0]}");
+        }
+
+        private static readonly Dictionary<int, string> CardsMap = new Dictionary<int, string>
+        {
+            [10] = "T",
+            [11] = "J",
+            [12] = "Q",
+            [13] = "K",
+            [14] = "A"
+        };
+
+        private static decimal GetPutInPotAmount(string playerName, HandHistory handHistory, Street street)
+        {
+            return Math.Abs(handHistory.HandActions
+                .Where(x => x.PlayerName == playerName && x.Street == street)
+                .Sum(x => x.Amount));
         }
 
         #endregion

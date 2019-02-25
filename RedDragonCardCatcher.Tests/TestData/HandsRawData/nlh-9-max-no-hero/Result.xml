@@ -3,7 +3,7 @@
   <DateOfHandUtc>2019-02-22T11:58:20.8966117Z</DateOfHandUtc>
   <HandId>1550836700896</HandId>
   <DealerButtonPosition>3</DealerButtonPosition>
-  <TableName>0.1/0.2-100-1550834388</TableName>
+  <TableName>0.1/0.2-100-287107</TableName>
   <GameDescription>
     <PokerFormat>CashGame</PokerFormat>
     <Site>RedDragon</Site>
@@ -15,7 +15,7 @@
       <IsAnteTable>false</IsAnteTable>
       <Ante>0</Ante>
     </Limit>
-    <SeatType MaxPlayers="9" />
+    <SeatType MaxPlayers="8" />
     <TableType>Regular</TableType>
     <Identifier>287107</Identifier>
   </GameDescription>
@@ -52,11 +52,11 @@
   </Actions>
   <CommunityCards>JsTdJd4h4s</CommunityCards>
   <Players>
-    <Player PlayerName="247579" PlayerNick="来呀互相伤害啊" StartingStack="19.8" Bet="0.2" Win="0" SeatNumber="1" Cards="" IsSittingOut="false" />
+    <Player PlayerName="247579" PlayerNick="来呀互相伤害啊" StartingStack="20" Bet="0.2" Win="0" SeatNumber="1" Cards="" IsSittingOut="false" />
     <Player PlayerName="165079" PlayerNick="fish2019" StartingStack="22.32" Bet="0" Win="0" SeatNumber="2" Cards="" IsSittingOut="false" />
     <Player PlayerName="232929" PlayerNick="不要叫我爸爸" StartingStack="18.8" Bet="0" Win="0" SeatNumber="3" Cards="" IsSittingOut="false" />
-    <Player PlayerName="172480" PlayerNick="tttony" StartingStack="13.55" Bet="0.2" Win="0" SeatNumber="4" Cards="" IsSittingOut="false" />
-    <Player PlayerName="242335" PlayerNick="圆圆圆圆圆" StartingStack="28.8" Bet="3.2" Win="7.5" SeatNumber="5" Cards="KsTc" IsSittingOut="false" />
+    <Player PlayerName="172480" PlayerNick="tttony" StartingStack="13.65" Bet="0.2" Win="0" SeatNumber="4" Cards="" IsSittingOut="false" />
+    <Player PlayerName="242335" PlayerNick="圆圆圆圆圆" StartingStack="29" Bet="3.2" Win="7.5" SeatNumber="5" Cards="KsTc" IsSittingOut="false" />
     <Player PlayerName="251647" PlayerNick="Oishi" StartingStack="19.8" Bet="0.7" Win="0" SeatNumber="6" Cards="" IsSittingOut="false" />
     <Player PlayerName="175007" PlayerNick="埖啝尙" StartingStack="70.25" Bet="0" Win="0" SeatNumber="7" Cards="" IsSittingOut="false" />
     <Player PlayerName="252418" PlayerNick="最美的太阳" StartingStack="30.9" Bet="3.2" Win="0" SeatNumber="8" Cards="Th2h" IsSittingOut="false" />    
