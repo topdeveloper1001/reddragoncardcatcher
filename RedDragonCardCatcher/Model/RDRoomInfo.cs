@@ -28,7 +28,23 @@ namespace RedDragonCardCatcher.Model
 
         public int MaxPlayers { get; set; }
 
-        public List<RDPackage> Packages { get; } = new List<RDPackage>();        
+        public bool IsTournament
+        {
+            get
+            {
+                return RoomType == ERoomType.mttRoom || RoomType == ERoomType.sngRoom;
+            }
+        }
+
+        public string SignUpCost { get; set; }
+
+        public int SignUpFee { get; set; }
+
+        public List<RDPackage> Packages { get; } = new List<RDPackage>();
+
+        public long TournamentStartTime { get; set; }
+
+        public int TournamentStartingStack { get; set; }
 
         public bool IsDefined => RoomId != 0;
     }

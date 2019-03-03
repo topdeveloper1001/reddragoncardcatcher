@@ -80,7 +80,7 @@ namespace RedDragonCardCatcher.Licensing
         {
             get
             {
-                return license != null && license.SerialNumber != null && (license.SerialNumber.StartsWith("PPT", StringComparison.InvariantCulture) || licenseType == LicenseType.Trial);
+                return license != null && license.SerialNumber != null && (license.SerialNumber.StartsWith("RDT", StringComparison.InvariantCulture) || licenseType == LicenseType.Trial);
             }
         }
 

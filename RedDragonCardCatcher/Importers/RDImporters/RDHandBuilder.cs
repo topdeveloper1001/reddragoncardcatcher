@@ -20,6 +20,7 @@ using RedDragonCardCatcher.Common.Extensions;
 using RedDragonCardCatcher.Common.Linq;
 using RedDragonCardCatcher.Common.Log;
 using RedDragonCardCatcher.Common.Resources;
+using RedDragonCardCatcher.Common.Utils;
 using RedDragonCardCatcher.Entities;
 using RedDragonCardCatcher.Model;
 using System;
@@ -31,6 +32,8 @@ namespace RedDragonCardCatcher.Importers
 {
     internal class RDHandBuilder : IRDHandBuilder
     {
+        private const Currency DefaultCurrency = Currency.All;
+
         private readonly Dictionary<IntPtr, RDRoomInfo> roomInfos = new Dictionary<IntPtr, RDRoomInfo>();
 
         public bool IsRoomInfoAvailable(IntPtr windowHandle)
@@ -60,6 +63,15 @@ namespace RedDragonCardCatcher.Importers
                 case RDPackageType.JoinRoomResponse:
                     ParsePackage<JoinRoomResponse>(package, response => ProcessJoinRoomResponse(response, roomInfo));
                     return false;
+                case RDPackageType.JoinMTTRoomResponse:
+                    ParsePackage<JoinMTTRoomResponse>(package, response => ProcessJoinMTTRoomResponse(response, roomInfo));
+                    return false;
+                case RDPackageType.JoinSNGRoomResponse:
+                    ParsePackage<JoinSNGRoomResponse>(package, response => ProcessJoinSNGRoomResponse(response, roomInfo));
+                    return false;
+                case RDPackageType.RaceMTTResponse:
+                    ParsePackage<RaceMTTResponse>(package, response => ProcessRaceMTTResponse(response, roomInfo));
+                    return false;
             }
 
             roomInfo.Packages.Add(package);
@@ -87,7 +99,8 @@ namespace RedDragonCardCatcher.Importers
 
                 foreach (var package in roomInfo.Packages)
                 {
-                    if (package.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse)
+                    if (package.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse ||
+                        package.PackageType == RDPackageType.NotifyNextRoundStartResponse)
                     {
                         var dateOfHandUtc = package.Timestamp;
 
@@ -97,7 +110,15 @@ namespace RedDragonCardCatcher.Importers
                             HandId = dateOfHandUtc.ToUnixTimeInMilliseconds()
                         };
 
-                        ParsePackage<NotifyNextRoundStartRoomResponse>(package, response => ProcessNotifyNextRoundStartRoomResponse(response, roomInfo, history));
+                        if (package.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse)
+                        {
+                            ParsePackage<NotifyNextRoundStartRoomResponse>(package, response => ProcessNotifyNextRoundStartRoomResponse(response, roomInfo, history));
+                        }
+                        else if (package.PackageType == RDPackageType.NotifyNextRoundStartResponse)
+                        {
+                            ParsePackage<NotifyNextRoundStartResponse>(package, response => ProcessNotifyNextRoundStartResponse(response, roomInfo, history));
+                        }
+
                         isGameStarted = true;
                         continue;
                     }
@@ -127,7 +148,6 @@ namespace RedDragonCardCatcher.Importers
                         case RDPackageType.NotifyGainsResponse:
                             ParsePackage<NotifyGainsResponse>(package, response => ProcessNotifyGainsResponse(response, roomInfo, history));
                             break;
-
                     }
                 }
 
@@ -140,13 +160,22 @@ namespace RedDragonCardCatcher.Importers
                 LogProvider.Log.Error(this, $"Failed to build hand #{history?.HandId ?? 0} room #{history?.GameDescription.Identifier ?? 0} [{roomInfo.WindowHandle}]", e);
                 return null;
             }
+            finally
+            {
+                roomInfo.Packages.Clear();
+            }
         }
 
         private bool ValidatePackages(RDRoomInfo roomInfo)
         {
-            var nextRoundStartRoomResponse = roomInfo.Packages.FirstOrDefault(x => x.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse);
-
-            if (nextRoundStartRoomResponse == null)
+            if (roomInfo.RoomId == 0)
+            {
+                LogProvider.Log.Warn(this, $"Hand cannot be built because room info is missing. [{roomInfo.WindowHandle}]");
+                return false;
+            }
+            
+            if (roomInfo.Packages.FirstOrDefault(x => x.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse) == null
+                && roomInfo.Packages.FirstOrDefault(x => x.PackageType == RDPackageType.NotifyNextRoundStartResponse) == null)
             {
                 LogProvider.Log.Warn(this, $"Hand cannot be built because NextRoundStart message is missing. [{roomInfo.WindowHandle}]");
                 return false;
@@ -163,17 +192,77 @@ namespace RedDragonCardCatcher.Importers
             roomInfo.MaxPlayers = response.sitInfoes.Count;
         }
 
+        private void ProcessJoinMTTRoomResponse(JoinMTTRoomResponse response, RDRoomInfo roomInfo)
+        {
+            roomInfo.RoomId = response.roomId;
+            roomInfo.RoomName = response.Name;
+            roomInfo.RoomType = (ERoomType)response.roomType;
+            roomInfo.MaxPlayers = response.sitInfoes.Count;
+            roomInfo.SignUpCost = response.signUpCost;
+            roomInfo.SignUpFee = response.signUpFeePercent;
+        }
+
+        private void ProcessJoinSNGRoomResponse(JoinSNGRoomResponse response, RDRoomInfo roomInfo)
+        {
+            roomInfo.RoomId = response.roomId;
+            roomInfo.RoomName = response.Name;
+            roomInfo.RoomType = (ERoomType)response.roomType;
+            roomInfo.MaxPlayers = response.sitInfoes.Count;
+        }
+
+        private void ProcessRaceMTTResponse(RaceMTTResponse response, RDRoomInfo roomInfo)
+        {
+            roomInfo.TournamentStartTime = response.startTime;
+            roomInfo.TournamentStartingStack = response.startStack;
+        }
+
         private void ProcessNotifyNextRoundStartRoomResponse(NotifyNextRoundStartRoomResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
         {
+            var newResponse = new NotifyNextRoundStartResponse
+            {
+                Sb = response.Sb,
+                Bb = response.Bb,
+                Ante = response.Ante,
+                sitInfoes = response.sitInfoes,
+                roomId = response.roomId
+            };
+
+            ProcessNotifyNextRoundStartResponse(newResponse, roomInfo, handHistory);
+        }
+
+        private void ProcessNotifyNextRoundStartResponse(NotifyNextRoundStartResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
+        {
+            TournamentDescriptor tournamentDescriptor = null;
+
+            if (roomInfo.IsTournament)
+            {
+                tournamentDescriptor = new TournamentDescriptor
+                {
+                    StartDate = roomInfo.TournamentStartTime != 0 ? Utils.UnixTimeInMilisecondsToDateTime(roomInfo.TournamentStartTime) : DateTime.UtcNow,
+                    StartingStack = roomInfo.TournamentStartingStack,
+                    TournamentId = roomInfo.RoomId.ToString(),
+                    BuyIn = ParseBuyin(roomInfo),
+                    TournamentName = roomInfo.RoomName,
+                    TournamentsTags = roomInfo.RoomType == ERoomType.mttRoom ? TournamentsTags.MTT : TournamentsTags.STT,
+                    Speed = TournamentSpeed.Regular
+                };
+            }
+
             handHistory.GameDescription = new GameDescriptor(
+                roomInfo.IsTournament ? PokerFormat.Tournament : PokerFormat.CashGame,
                 EnumPokerSites.RedDragon,
                 ConvertRoomInfoToGameType(roomInfo),
-                Limit.FromSmallBlindBigBlind(response.Sb, response.Bb, Currency.All, response.Ante != 0, response.Ante),
+                Limit.FromSmallBlindBigBlind(response.Sb,
+                    response.Bb,
+                    roomInfo.IsTournament ? Currency.Chips : DefaultCurrency,
+                    response.Ante != 0,
+                    response.Ante),
                 TableType.FromTableTypeDescriptions(
                     roomInfo.RoomName.StartsWith("SD", StringComparison.OrdinalIgnoreCase) ?
                         TableTypeDescription.ShortDeck :
                         TableTypeDescription.Regular),
-                SeatType.FromMaxPlayers(roomInfo.MaxPlayers), null);
+                SeatType.FromMaxPlayers(roomInfo.MaxPlayers),
+                tournamentDescriptor);
 
             handHistory.TableName = $"{roomInfo.RoomName}-{roomInfo.RoomId}";
             handHistory.GameDescription.Identifier = response.roomId;
@@ -194,6 +283,16 @@ namespace RedDragonCardCatcher.Importers
                 };
 
                 handHistory.Players.Add(player);
+
+                if (seatInfo.playerId == response.playerId)
+                {
+                    handHistory.Hero = player;
+
+                    if (response.Cards != null)
+                    {
+                        player.Cards = string.Join(string.Empty, response.Cards.Select(x => ParseCard(x)));
+                    }
+                }
 
                 if (seatInfo.isDealer)
                 {
@@ -221,9 +320,9 @@ namespace RedDragonCardCatcher.Importers
                            seatInfo.Ante,
                            Street.Preflop));
                 }
-
-                HandHistoryUtils.SortHandActions(handHistory);
             }
+
+            HandHistoryUtils.SortHandActions(handHistory);
         }
 
         private void ProcessPlayerCallResponse(DoPlayerCallResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
@@ -239,7 +338,9 @@ namespace RedDragonCardCatcher.Importers
 
             var playerName = response.playerId.ToString();
             var street = handHistory.CommunityCards.Street;
-            var amount = (handActionType == HandActionType.CHECK) ? 0 : response.Bet - GetPutInPotAmount(playerName, handHistory, street);
+            var amount = (handActionType == HandActionType.CHECK || handActionType == HandActionType.FOLD) ?
+                0 :
+                response.Bet - GetPutInPotAmount(playerName, handHistory, street);
 
             var action = new HandAction(playerName,
                 handActionType,
@@ -328,7 +429,7 @@ namespace RedDragonCardCatcher.Importers
                         player.PlayerName,
                          HandActionType.WINS,
                          won,
-                         0));
+                         1));
 
                     player.Win = won;
                 }
@@ -360,6 +461,8 @@ namespace RedDragonCardCatcher.Importers
                 history.GameDescription.Tournament.Winning /= divider;
                 history.GameDescription.Tournament.Bounty /= divider;
                 history.GameDescription.Tournament.TotalPrize /= divider;
+
+                return;
             }
 
             history.HandActions.ForEach(a => a.Amount = a.Amount / divider);
@@ -377,10 +480,7 @@ namespace RedDragonCardCatcher.Importers
 
             history.TotalPot /= divider;
 
-            if (!history.GameDescription.IsTournament)
-            {
-                HandHistoryUtils.CalculateRake(history);
-            }
+            HandHistoryUtils.CalculateRake(history);
         }
 
         private T ParsePackage<T>(RDPackage package)
@@ -457,6 +557,40 @@ namespace RedDragonCardCatcher.Importers
             return Math.Abs(handHistory.HandActions
                 .Where(x => x.PlayerName == playerName && x.Street == street)
                 .Sum(x => x.Amount));
+        }
+
+        private static Buyin ParseBuyin(RDRoomInfo roomInfo)
+        {
+            if (string.IsNullOrEmpty(roomInfo.SignUpCost))
+            {
+                LogProvider.Log.Warn("Failed to parse tournament buy info.");
+                return Buyin.FromBuyinRake(0, 0, DefaultCurrency);
+            }
+
+            var colonIndex = roomInfo.SignUpCost.IndexOf(":");
+
+            decimal prizePool = 0;
+
+            if (colonIndex < 0 && !decimal.TryParse(roomInfo.SignUpCost, out prizePool))
+            {
+                LogProvider.Log.Warn($"Failed to parse tournament buy info from '{roomInfo.SignUpCost}' text.");
+                return Buyin.FromBuyinRake(0, 0, DefaultCurrency);
+            }
+
+            if (colonIndex >= 0)
+            {
+                var prizeText = roomInfo.SignUpCost.Substring(colonIndex + 1);
+
+                if (!decimal.TryParse(prizeText, out prizePool))
+                {
+                    LogProvider.Log.Warn($"Failed to parse tournament buy info from '{roomInfo.SignUpCost}' text.");
+                    return Buyin.FromBuyinRake(0, 0, DefaultCurrency);
+                }
+            }
+
+            var fee = prizePool * roomInfo.SignUpFee / 100;
+
+            return Buyin.FromBuyinRake(prizePool, fee, DefaultCurrency);
         }
 
         #endregion

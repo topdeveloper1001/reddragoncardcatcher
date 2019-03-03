@@ -10716,7 +10716,7 @@ namespace RedDragonCardCatcher.Model
         public int gameId { get; set; }
 
         [ProtoMember(5, Name = @"sitInfo")]
-        public List<SitInfo> sitInfoes { get; } = new List<SitInfo>();
+        public List<SitInfo> sitInfoes { get; set; } = new List<SitInfo>();
 
         [ProtoMember(6, Name = @"pot", IsRequired = true)]
         public long Pot { get; set; }

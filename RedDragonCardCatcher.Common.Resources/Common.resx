@@ -127,19 +127,19 @@
     <value>Holdem Manager 2</value>
   </data>
   <data name="Common_DBSelection_Notice" xml:space="preserve">
-    <value>Which database would you like to setup the PPPoker Card Catcher for? You can change database in the settings later.</value>
+    <value>Which database would you like to setup the Red Dragon Card Catcher for? You can change database in the settings later.</value>
   </data>
   <data name="Common_DBSelection_PT4" xml:space="preserve">
     <value>Poker Tracker 4</value>
   </data>
   <data name="Common_DBSelection_Title" xml:space="preserve">
-    <value>Dragon Poker Card Catcher - Select database</value>
+    <value>Red Dragon Card Catcher - Select database</value>
   </data>
   <data name="Common_Error" xml:space="preserve">
     <value>Sorry, something went wrong! Please contact support if this error happens again.</value>
   </data>
   <data name="Common_FatalError" xml:space="preserve">
-    <value>Fatal error: Dragon Poker Card Catcher will be closed</value>
+    <value>Fatal error: Red Dragon Card Catcher will be closed</value>
   </data>
   <data name="Common_License" xml:space="preserve">
     <value>License:</value>
@@ -199,8 +199,8 @@
     <value>Your license(s) are expiring soon. Please renew.</value>
   </data>
   <data name="Common_RegistrationView_GreetingText" xml:space="preserve">
-    <value>Dragon Poker Card Catcher
-The Dragon Poker Card Catcher is an add-on application that will allow you to capture and run a HUD through DriveHUD/HM2/HM3/PT4. It includes a fully functional 7 day trial. Click Try to enable the trial.</value>
+    <value>Red Dragon Card Catcher
+The Red Dragon Card Catcher is an add-on application that will allow you to capture and run a HUD through DriveHUD/HM2/HM3/PT4. It includes a fully functional 7 day trial. Click Try to enable the trial.</value>
   </data>
   <data name="Common_RegistrationView_InvalidSerial" xml:space="preserve">
     <value>Could not register software. Invalid serial number. Please enter valid serial or contact support.</value>
@@ -218,7 +218,7 @@ The Dragon Poker Card Catcher is an add-on application that will allow you to ca
     <value>Register</value>
   </data>
   <data name="Common_RegistrationView_RegisterText" xml:space="preserve">
-    <value>Please enter the following data to register your version of Dragon Poker Card Catcher:</value>
+    <value>Please enter the following data to register your version of Red Dragon Card Catcher:</value>
   </data>
   <data name="Common_RegistrationView_Renew" xml:space="preserve">
     <value>Renew</value>
@@ -227,16 +227,16 @@ The Dragon Poker Card Catcher is an add-on application that will allow you to ca
     <value>Serial:</value>
   </data>
   <data name="Common_RegistrationView_SuccessText" xml:space="preserve">
-    <value>Thank you. Dragon Poker Card Catcher has been successfully registered!</value>
+    <value>Thank you. Red Dragon Card Catcher has been successfully registered!</value>
   </data>
   <data name="Common_RegistrationView_Title" xml:space="preserve">
-    <value>Dragon Poker Card Catcher Registration</value>
+    <value>Red Dragon Card Catcher Registration</value>
   </data>
   <data name="Common_RegistrationView_Trial" xml:space="preserve">
     <value>Trial</value>
   </data>
   <data name="Common_RegistrationView_TrialExpiredText" xml:space="preserve">
-    <value>You trial period is over. Please register your version of Dragon Poker Card Catcher</value>
+    <value>You trial period is over. Please register your version of Red Dragon Card Catcher</value>
   </data>
   <data name="Common_RegistrationView_TrialRegisterError" xml:space="preserve">
     <value>Could not register error. Internal error occurred. Please contact support.</value>
@@ -296,16 +296,16 @@ The Dragon Poker Card Catcher is an add-on application that will allow you to ca
     <value>PT4 Configuration</value>
   </data>
   <data name="Common_Settings_PT4ConfigurationText" xml:space="preserve">
-    <value>PPPoker Card Catcher detected that Allow Vector Scaling and Allow New Font Scaling options are enabled in PT4 (Hud-&gt;Edit Hud Options-&gt;General Settings-&gt;Advanced). If these options are enabled HUDs will be scaled incorrectly, because PT4 expects that width of poker table window is greater than its height. Do you want to disable it?</value>
+    <value>Red Dragon Card Catcher detected that Allow Vector Scaling and Allow New Font Scaling options are enabled in PT4 (Hud-&gt;Edit Hud Options-&gt;General Settings-&gt;Advanced). If these options are enabled HUDs will be scaled incorrectly, because PT4 expects that width of poker table window is greater than its height. Do you want to disable it?</value>
   </data>
   <data name="Common_Settings_PT4HUDInstallation" xml:space="preserve">
     <value>PT4 HUD Installation</value>
   </data>
   <data name="Common_Settings_PT4HUDInstallationText" xml:space="preserve">
-    <value>Default PT4 HUDs aren't compatible with Dragon Poker client, because PT4 expects that width of poker table window is greater than its height. In this case some parts of HUDs will be outside of table and you will need to move them manually. PPPoker Card Catcher can install predefined HUD with correct positions (this HUD is designed for club tables). Do you want to install it?</value>
+    <value>Default PT4 HUDs aren't compatible with Red Dragon client, because PT4 expects that width of poker table window is greater than its height. In this case some parts of HUDs will be outside of table and you will need to move them manually. Red Dragon Card Catcher can install predefined HUD with correct positions (this HUD is designed for club tables). Do you want to install it?</value>
   </data>
   <data name="Common_Settings_Title" xml:space="preserve">
-    <value>Dragon Poker Card Catcher Settings</value>
+    <value>Red Dragon Card Catcher Settings</value>
   </data>
   <data name="Common_Settings_UsePlayerId" xml:space="preserve">
     <value>Use Player ID</value>
@@ -320,7 +320,7 @@ The Dragon Poker Card Catcher is an add-on application that will allow you to ca
     <value>STOP CATCHER</value>
   </data>
   <data name="Common_Title" xml:space="preserve">
-    <value>Dragon Poker Card Catcher</value>
+    <value>Red Dragon Card Catcher</value>
   </data>
   <data name="Common_Troubleshoot" xml:space="preserve">
     <value>Troubleshoot</value>
@@ -335,13 +335,13 @@ The Dragon Poker Card Catcher is an add-on application that will allow you to ca
     <value>Completed.</value>
   </data>
   <data name="Common_UpdateView_Header" xml:space="preserve">
-    <value>Dragon Poker Card Catcher v.{0} is available</value>
+    <value>Red Dragon Card Catcher v.{0} is available</value>
   </data>
   <data name="Common_UpdateView_ReleaseNotes" xml:space="preserve">
     <value>Release Notes (v.{0}):</value>
   </data>
   <data name="Common_UpdateView_Title" xml:space="preserve">
-    <value>Dragon Poker Card Catcher Update Notice</value>
+    <value>Red Dragon Card Catcher Update Notice</value>
   </data>
   <data name="Common_UpdateView_Update" xml:space="preserve">
     <value>Update</value>

@@ -82,7 +82,7 @@ namespace HandHistories.Converters
         {
             switch (history.GameDescription.Site)
             {
-                case EnumPokerSites.PPPoker:
+                case EnumPokerSites.RedDragon:
                     return DefaultCurrencySymbol;
                 default:
                     return history.GameDescription.Tournament.BuyIn.GetCurrencySymbol();

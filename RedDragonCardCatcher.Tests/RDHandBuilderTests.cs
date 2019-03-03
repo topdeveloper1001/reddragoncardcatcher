@@ -70,6 +70,8 @@ namespace RedDragonCardCatcher.Tests
         }
 
         [TestCase(@"HandsRawData\nlh-9-max-no-hero")]
+        [TestCase(@"HandsRawData\nlh-mtt-no-hero")]
+        [TestCase(@"HandsRawData\nlh-8-max-hero")]
         public void TryBuildTest(string testFolder)
         {
             var packages = ReadPackages(testFolder);

@@ -68,5 +68,16 @@ namespace RedDragonCardCatcher.Common.Utils
 
             return errorCodes;
         }
+
+        /// <summary>
+        /// Convert Unix time value to a DateTime object.
+        /// </summary>
+        /// <param name="unixtime">The Unix time stamp you want to convert to DateTime.</param>
+        /// <returns>Returns a DateTime object that represents value of the Unix time.</returns>
+        public static DateTime UnixTimeInMilisecondsToDateTime(long unixtime)
+        {
+            DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return sTime.AddMilliseconds(unixtime);
+        }
     }
 }

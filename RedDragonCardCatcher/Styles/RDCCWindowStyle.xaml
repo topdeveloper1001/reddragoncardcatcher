@@ -32,7 +32,7 @@
             Value="{StaticResource OpenSans}" />
         <Setter
             Property="Icon"
-            Value="/Images/ppp-logo.ico" />
+            Value="/Images/rd-logo.ico" />
         <Setter
             Property="Template">
             <Setter.Value>
@@ -112,7 +112,7 @@
                                     VerticalAlignment="Stretch"
                                     CornerRadius="7,7,0,0"
                                     BorderThickness="0"
-                                    Background="#082b18">
+                                    Background="#7b1515">
                                     <DockPanel
                                         VerticalAlignment="Center">
 
@@ -181,16 +181,16 @@
                                             StartPoint="0,0"
                                             EndPoint="0,1">
                                             <GradientStop
-                                                Color="#a6caae"
+                                                Color="#caa6a6"
                                                 Offset="0.0" />
                                             <GradientStop
-                                                Color="#aad0b4"
+                                                Color="#d0aaaa"
                                                 Offset="0.32" />
                                             <GradientStop
-                                                Color="#aed5b7"
+                                                Color="#d5aeae"
                                                 Offset="0.64" />
                                             <GradientStop
-                                                Color="#b2d9bb"
+                                                Color="#d9b2b2"
                                                 Offset="1.0" />
                                         </LinearGradientBrush>
                                     </Border.Background>

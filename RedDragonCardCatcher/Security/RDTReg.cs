@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PPTReg.cs" company="Ace Poker Solutions">
+// <copyright file="RDTReg.cs" company="Ace Poker Solutions">
 // Copyright © 2019 Ace Poker Solutions. All Rights Reserved.
 // Unless otherwise noted, all materials contained in this Site are copyrights, 
 // trademarks, trade dress and/or other intellectual properties, owned, 
@@ -14,18 +14,18 @@ using DeployLX.Licensing.v5;
 
 namespace RedDragonCardCatcher.Security
 {
-    //internal class PPTReg : ILicenseManager
-    //{
-    //    private readonly PPTRegistration.PPTReg licenseManager = new PPTRegistration.PPTReg();
+    internal class RDTReg : ILicenseManager
+    {
+        private readonly RDTRegistration.RDTReg licenseManager = new RDTRegistration.RDTReg();
 
-    //    public void ResetCacheForLicense(SecureLicense license)
-    //    {
-    //        licenseManager.ResetCacheForLicense(license);
-    //    }
+        public void ResetCacheForLicense(SecureLicense license)
+        {
+            licenseManager.ResetCacheForLicense(license);
+        }
 
-    //    public SecureLicense Validate(LicenseValidationRequestInfo requestInfo)
-    //    {
-    //        return licenseManager.Validate(requestInfo);
-    //    }
-    //}
+        public SecureLicense Validate(LicenseValidationRequestInfo requestInfo)
+        {
+            return licenseManager.Validate(requestInfo);
+        }
+    }
 }

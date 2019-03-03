@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HandHistory>
+  <DateOfHandUtc>2019-02-26T09:49:23.8625601Z</DateOfHandUtc>
+  <HandId>1551174563862</HandId>
+  <DealerButtonPosition>8</DealerButtonPosition>
+  <TableName>22超快速-保底2000-191059</TableName>
+  <GameDescription>
+    <PokerFormat>Tournament</PokerFormat>
+    <Site>RedDragon</Site>
+    <GameType>NoLimitHoldem</GameType>
+    <Limit>
+      <Currency>Chips</Currency>
+      <SmallBlind>2000</SmallBlind>
+      <BigBlind>4000</BigBlind>
+      <IsAnteTable>true</IsAnteTable>
+      <Ante>500</Ante>
+    </Limit>
+    <SeatType MaxPlayers="9" />
+    <TableType>Regular</TableType>
+    <Tournament>
+      <TournamentId>191059</TournamentId>
+      <TournamentName>22超快速-保底2000</TournamentName>
+      <TournamentsTags>MTT</TournamentsTags>
+      <BuyIn>
+        <Currency>All</Currency>
+        <PrizePoolValue>20</PrizePoolValue>
+        <Rake>2</Rake>
+        <IsKnockout>false</IsKnockout>
+        <KnockoutValue>0</KnockoutValue>
+      </BuyIn>
+      <Bounty>0</Bounty>   
+      <Winning>0</Winning>
+      <TotalPrize>0</TotalPrize>
+      <FinishPosition>0</FinishPosition>
+      <TotalPlayers>0</TotalPlayers>
+      <StartDate>2019-02-26T14:30:00Z</StartDate>
+      <Speed>Regular</Speed>
+    </Tournament>
+    <Identifier>191059</Identifier>
+  </GameDescription>
+  <Cancelled>false</Cancelled>
+  <NumPlayersSeated>0</NumPlayersSeated>
+  <TotalPot>11000</TotalPot>
+  <Actions>
+    <HandAction PlayerName="245048" HandActionType="ANTE" Amount="-500" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="248713" HandActionType="ANTE" Amount="-500" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="255964" HandActionType="ANTE" Amount="-500" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="249780" HandActionType="ANTE" Amount="-500" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="234615" HandActionType="ANTE" Amount="-500" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="253437" HandActionType="ANTE" Amount="-500" Street="Preflop" IsAllIn="false" />     
+    <HandAction PlayerName="245048" HandActionType="SMALL_BLIND" Amount="-2000" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="248713" HandActionType="BIG_BLIND" Amount="-4000" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="255964" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="249780" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="234615" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="253437" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="245048" HandActionType="RAISE" Amount="-7500" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="248713" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />    
+    <HandAction PlayerName="245048" HandActionType="UNCALLED_BET" Amount="5500" Street="Preflop" IsAllIn="false" />    
+    <HandAction p3:type="WinningsAction" PlayerName="245048" HandActionType="WINS" Amount="11000" Street="Summary" IsAllIn="false" PotNumber="1" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" />
+  </Actions>
+  <CommunityCards></CommunityCards>
+  <Players>
+    <Player PlayerName="248713" PlayerNick="g703698" StartingStack="12525" Bet="4500" Win="0" SeatNumber="1" Cards="" IsSittingOut="false" />
+    <Player PlayerName="255964" PlayerNick="河豚王" StartingStack="54198" Bet="500" Win="0" SeatNumber="2" Cards="" IsSittingOut="false" />
+    <Player PlayerName="249780" PlayerNick="玩家159" StartingStack="73120" Bet="500" Win="0" SeatNumber="4" Cards="" IsSittingOut="false" />
+    <Player PlayerName="234615" PlayerNick="陌都" StartingStack="8500" Bet="500" Win="0" SeatNumber="5" Cards="" IsSittingOut="false" />
+    <Player PlayerName="253437" PlayerNick="不赢不行啊" StartingStack="50364" Bet="500" Win="0" SeatNumber="8" Cards="" IsSittingOut="false" />
+    <Player PlayerName="245048" PlayerNick="微风撩人" StartingStack="52792" Bet="10000" Win="11000" SeatNumber="9" Cards="" IsSittingOut="false" />
+  </Players>
+</HandHistory>

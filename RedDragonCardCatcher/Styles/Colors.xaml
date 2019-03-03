@@ -4,15 +4,15 @@
 
     <SolidColorBrush
         x:Key="WindowButtonBrush"
-        Color="#0a4e27" />
+        Color="#4e0a0a" />
 
     <SolidColorBrush
         x:Key="WindowActiveButtonBrush"
-        Color="#449657" />
+        Color="#964444" />
 
     <SolidColorBrush
         x:Key="WindowButtonInnerBrush"
-        Color="#a1a2a6" />
+        Color="#a6a1a1" />
 
     <SolidColorBrush
         x:Key="WindowActiveButtonInnerBrush"
@@ -25,7 +25,7 @@
 
     <SolidColorBrush
         x:Key="WindowContentBorderBrush"
-        Color="#b78340" />
+        Color="#b74040" />
 
     <SolidColorBrush
         x:Key="ButtonTextBlockBrush"
@@ -33,25 +33,33 @@
 
     <SolidColorBrush
         x:Key="TextForegroundBrush"
-        Color="#000000" />
+        Color="#ffffff" />
 
     <SolidColorBrush
         x:Key="ProgressBarBackgroundBrush"
-        Color="#a6deae" />
+        Color="#dea6a6" />
 
     <SolidColorBrush
         x:Key="ProgressBarBorderBrush"
-        Color="#3cc179" />
+        Color="#c13c3c" />
 
     <SolidColorBrush
         x:Key="TextBoxBackgroundBrush"
-        Color="#a8fab4" />
+        Color="#da6f6f" />
+
+    <SolidColorBrush
+        x:Key="CheckBoxMouseOverBackgroundBrush"
+        Color="#dea6a6" />
+
+    <SolidColorBrush
+        x:Key="CheckBoxPressedBackgroundBrush"
+        Color="#fdc9c9" />
 
     <Color
         x:Key="ButtonTextBlockShadowColor">#000000</Color>
 
     <Color
-        x:Key="ButtonDropShadowColor">#a8d5b6</Color>
+        x:Key="ButtonDropShadowColor">#d5a8a8</Color>
 
     <!--#region Start Stop button colors -->
 
@@ -60,10 +68,10 @@
         StartPoint="0,0"
         EndPoint="0,1">
         <GradientStop
-            Color="#33cc33"
+            Color="#cc9a9a"
             Offset="0" />
         <GradientStop
-            Color="#2bac2b"
+            Color="#ad7777"
             Offset="1" />
     </LinearGradientBrush>
 
@@ -72,10 +80,10 @@
         StartPoint="0,0"
         EndPoint="0,1">
         <GradientStop
-            Color="#44dd44"
+            Color="#d9a5a5"
             Offset="0" />
         <GradientStop
-            Color="#3cbd3c"
+            Color="#c48585"
             Offset="1" />
     </LinearGradientBrush>
 
@@ -84,10 +92,10 @@
         StartPoint="0,0"
         EndPoint="0,1">
         <GradientStop
-            Color="#22bb22"
+            Color="#bb2222"
             Offset="0" />
         <GradientStop
-            Color="#1a9b1a"
+            Color="#9b1a1a"
             Offset="1" />
     </LinearGradientBrush>
 
@@ -134,10 +142,10 @@
         StartPoint="0,0"
         EndPoint="0,1">
         <GradientStop
-            Color="#23a25d"
+            Color="#a22323"
             Offset="0" />
         <GradientStop
-            Color="#35ab6b"
+            Color="#ab3535"
             Offset="1" />
     </LinearGradientBrush>
 
@@ -146,10 +154,10 @@
         StartPoint="0,0"
         EndPoint="0,1">
         <GradientStop
-            Color="#28b468"
+            Color="#b42828"
             Offset="0" />
         <GradientStop
-            Color="#3cc179"
+            Color="#c13c3c"
             Offset="1" />
     </LinearGradientBrush>
 
@@ -158,10 +166,10 @@
         StartPoint="0,0"
         EndPoint="0,1">
         <GradientStop
-            Color="#95a595"
+            Color="#a59595"
             Offset="0" />
         <GradientStop
-            Color="#8aa48a"
+            Color="#a48a8a"
             Offset="1" />
     </LinearGradientBrush>
 

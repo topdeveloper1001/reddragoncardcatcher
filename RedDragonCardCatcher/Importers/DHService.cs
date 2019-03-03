@@ -35,7 +35,7 @@ namespace RedDragonCardCatcher.Importers
 
                 var handHistoryDto = new HandHistoryDto
                 {
-                    PokerSite = EnumPokerSites.PPPoker,
+                    PokerSite = EnumPokerSites.RedDragon,
                     WindowHandle = handHistoryData.WindowHandle.ToInt32(),
                     HandText = handHistoryText
                 };

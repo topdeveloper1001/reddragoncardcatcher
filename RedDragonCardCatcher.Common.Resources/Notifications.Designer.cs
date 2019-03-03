@@ -61,7 +61,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DriveHUD cannot load a HUD since the table was open prior to DriveHUD being loaded. DriveHUD needs to be loaded first, then a table for PPPoker can be loaded..
+        ///   Looks up a localized string similar to DriveHUD cannot load a HUD since the table was open prior to DriveHUD being loaded. DriveHUD needs to be loaded first, then a table for Red Dragon can be loaded..
         /// </summary>
         internal static string Notifications_HudLayout_PreLoadingText_CanNotBeCapturedText {
             get {
@@ -79,7 +79,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HUD can&apos;t be loaded. PPPoker Card Catcher License doesn&apos;t support this table..
+        ///   Looks up a localized string similar to HUD can&apos;t be loaded. Red Dragon Card Catcher License doesn&apos;t support this table..
         /// </summary>
         internal static string Notifications_HudLayout_PreLoadingText_NoLicense {
             get {

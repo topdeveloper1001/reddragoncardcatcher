@@ -68,7 +68,7 @@ namespace RedDragonCardCatcher.Common.Security
                     fileHash = sb.ToString();
 
 #if DEBUG
-                    System.Diagnostics.Debug.WriteLine("{0} - {1}", file, fileHash);
+                    System.Diagnostics.Debug.WriteLine("{0} - {1}", file, fileHash);                    
 #endif
                 }
             }

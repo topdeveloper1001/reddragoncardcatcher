@@ -102,7 +102,9 @@
     <Fakes Include="Fakes\System.fakes" />
     <Fakes Include="Fakes\mscorlib.fakes" />
     <None Include="packages.config" />
+    <None Include="TestData\HandsRawData\nlh-8-max-hero\Source.json" />
     <None Include="TestData\HandsRawData\nlh-9-max-no-hero\Source.json" />
+    <None Include="TestData\HandsRawData\nlh-mtt-no-hero\Source.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedDragonCardCatcher.Common.Resources\RedDragonCardCatcher.Common.Resources.csproj">
@@ -124,7 +126,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="TestData\HandsRawData\nlh-8-max-hero\Result.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="TestData\HandsRawData\nlh-9-max-no-hero\Result.xml" />
+    <Content Include="TestData\HandsRawData\nlh-mtt-no-hero\Result.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="TestData\Packets\PlayerCallResponse.txt" />
     <Content Include="TestData\Packets\Raw-Log-1-pkg.txt" />
     <Content Include="TestData\Packets\Raw-Log-1.txt" />

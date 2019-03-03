@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDTReg", "RDTReg\RDTReg.csproj", "{1EC15FD4-3449-4E8F-9405-5C1ACB9613EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDSReg", "RDSReg\RDSReg.csproj", "{AE2E58BA-A5DD-48EE-81CA-EECA6FB9758A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EC15FD4-3449-4E8F-9405-5C1ACB9613EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC15FD4-3449-4E8F-9405-5C1ACB9613EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC15FD4-3449-4E8F-9405-5C1ACB9613EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC15FD4-3449-4E8F-9405-5C1ACB9613EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2E58BA-A5DD-48EE-81CA-EECA6FB9758A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2E58BA-A5DD-48EE-81CA-EECA6FB9758A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2E58BA-A5DD-48EE-81CA-EECA6FB9758A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2E58BA-A5DD-48EE-81CA-EECA6FB9758A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B85ECB33-D4A5-4E4D-9378-C14CD8B840B2}
+	EndGlobalSection
+EndGlobal

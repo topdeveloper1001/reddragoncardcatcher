@@ -35,8 +35,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\rd-logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DeployLX.Licensing.v5">
+    <Reference Include="DeployLX.Licensing.v5, Version=5.0.2000.0, Culture=neutral, PublicKeyToken=798276055709c98a, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\DeployLX.Licensing.v5.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.1.0.145, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -71,6 +74,12 @@
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="RDSReg, Version=1.0.0.0, Culture=neutral, PublicKeyToken=72e61779ece0daa9, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\RDSReg.dll</HintPath>
+    </Reference>
+    <Reference Include="RDTReg, Version=1.0.0.0, Culture=neutral, PublicKeyToken=72e61779ece0daa9, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\RDTReg.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI, Version=7.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\reactiveui-core.7.4.0\lib\Net45\ReactiveUI.dll</HintPath>
@@ -267,8 +276,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Security\ILicenseManager.cs" />
-    <Compile Include="Security\PPSReg.cs" />
-    <Compile Include="Security\PPTReg.cs" />
+    <Compile Include="Security\RDSReg.cs" />
+    <Compile Include="Security\RDTReg.cs" />
     <Compile Include="Services\DbInstaller\DBHelper.cs" />
     <Compile Include="Services\DbInstaller\EmptyDbInstaller.cs" />
     <Compile Include="Services\DbInstaller\Hm2DbInstaller.cs" />
@@ -390,7 +399,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background.png" />
-    <Resource Include="Images\ppp-logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">
@@ -443,6 +451,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\rd-logo.ico" />
     <Content Include="Lib\HereBeDragons.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

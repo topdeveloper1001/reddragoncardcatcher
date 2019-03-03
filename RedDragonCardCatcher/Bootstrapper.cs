@@ -78,8 +78,8 @@ namespace RedDragonCardCatcher
             Container.RegisterType<IDbInstaller, EmptyDbInstaller>(DatabaseType.HM3.ToString());
 
             // licenses
-            //Container.RegisterType<ILicenseManager, PPTReg>(LicenseType.Trial.ToString());
-            //Container.RegisterType<ILicenseManager, PPSReg>(LicenseType.Normal.ToString());
+            Container.RegisterType<ILicenseManager, RDTReg>(LicenseType.Trial.ToString());
+            Container.RegisterType<ILicenseManager, RDSReg>(LicenseType.Normal.ToString());
 
             // views
             Container.RegisterType<IViewModelContainer, SettingsView>(RegionViewNames.SettingsPopupView);
@@ -105,53 +105,11 @@ namespace RedDragonCardCatcher
             ConfigureImporters();
         }
 
-        //protected override void InitializeShell()
-        //{
-        //    var licenseService = ServiceLocator.Current.GetInstance<ILicenseService>();
-        //    isLicenseValid = licenseService.Validate();
-
-        //    try
-        //    {
-        //        mainWindowViewModel = new MainWindowViewModel();
-
-        //        ((Window)Shell).DataContext = mainWindowViewModel;
-        //        ((Window)Shell).Topmost = true;
-        //        ((Window)Shell).Show();
-        //        ((Window)Shell).Topmost = false;
-
-        //        if (App.IsUpdateAvailable)
-        //        {
-        //            mainWindowViewModel.ShowUpdateView();
-        //        }
-
-        //        if (!isLicenseValid || licenseService.IsTrial ||
-        //            (licenseService.IsRegistered && licenseService.IsExpiringSoon) ||
-        //            !licenseService.IsRegistered)
-        //        {
-        //            var registrationPopupRequestInfo = new RegistrationPopupRequestInfo(false);
-        //            mainWindowViewModel.RegistrationNotificationRequest.Raise(registrationPopupRequestInfo);
-
-        //            mainWindowViewModel.RefreshLicenseText();
-        //        }
-
-        //        if (!licenseService.IsRegistered)
-        //        {
-        //            Application.Current.Shutdown();
-        //        }
-
-        //        mainWindowViewModel.IsTrial = licenseService.IsTrial;
-        //        mainWindowViewModel.IsUpgradable = licenseService.IsUpgradable;
-
-        //        mainWindowViewModel.CheckAndShowDBSelection();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        LogProvider.Log.Error(this, "Could not launch main window.", e);
-        //    }
-        //}
-
         protected override void InitializeShell()
         {
+            var licenseService = ServiceLocator.Current.GetInstance<ILicenseService>();
+            isLicenseValid = licenseService.Validate();
+
             try
             {
                 mainWindowViewModel = new MainWindowViewModel();
@@ -166,8 +124,23 @@ namespace RedDragonCardCatcher
                     mainWindowViewModel.ShowUpdateView();
                 }
 
-                mainWindowViewModel.IsTrial = true;
-                mainWindowViewModel.IsUpgradable = true;
+                if (!isLicenseValid || licenseService.IsTrial ||
+                    (licenseService.IsRegistered && licenseService.IsExpiringSoon) ||
+                    !licenseService.IsRegistered)
+                {
+                    var registrationPopupRequestInfo = new RegistrationPopupRequestInfo(false);
+                    mainWindowViewModel.RegistrationNotificationRequest.Raise(registrationPopupRequestInfo);
+
+                    mainWindowViewModel.RefreshLicenseText();
+                }
+
+                if (!licenseService.IsRegistered)
+                {
+                    Application.Current.Shutdown();
+                }
+
+                mainWindowViewModel.IsTrial = licenseService.IsTrial;
+                mainWindowViewModel.IsUpgradable = licenseService.IsUpgradable;
 
                 mainWindowViewModel.CheckAndShowDBSelection();
             }
@@ -175,7 +148,7 @@ namespace RedDragonCardCatcher
             {
                 LogProvider.Log.Error(this, "Could not launch main window.", e);
             }
-        }
+        }     
 
         private void ConfigureImporters()
         {

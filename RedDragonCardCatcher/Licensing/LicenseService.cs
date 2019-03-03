@@ -449,7 +449,7 @@ namespace RedDragonCardCatcher.Licensing
         {
             get
             {
-                return !licenseInfos.Any(x => x.IsRegistered && !x.IsExpired && x.Serial.StartsWith("PPP"));
+                return !licenseInfos.Any(x => x.IsRegistered && !x.IsExpired && x.Serial.StartsWith("RDP"));
             }
         }
 
@@ -460,13 +460,13 @@ namespace RedDragonCardCatcher.Licensing
         /// <returns>Type of license</returns>
         public LicenseType? GetTypeFromSerial(string serial)
         {
-            if (serial.StartsWith("PPS", StringComparison.Ordinal)
-               || serial.StartsWith("PPP", StringComparison.Ordinal))
+            if (serial.StartsWith("RDS", StringComparison.Ordinal)
+               || serial.StartsWith("RDP", StringComparison.Ordinal))
             {
                 return LicenseType.Normal;
             }
 
-            if (serial.StartsWith("PPT", StringComparison.Ordinal))
+            if (serial.StartsWith("RDT", StringComparison.Ordinal))
             {
                 return LicenseType.Trial;
             }
@@ -481,9 +481,6 @@ namespace RedDragonCardCatcher.Licensing
         /// <returns>True if valid, otherwise - false</returns>
         public bool IsMatch(HandHistory handHistory)
         {
-#warning temporary disabled lic checks
-            return true;
-
             if (handHistory == null || handHistory.GameDescription == null)
             {
                 return false;

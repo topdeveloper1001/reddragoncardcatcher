@@ -48,7 +48,7 @@
     <HandAction PlayerName="251647" HandActionType="FOLD" Amount="0" Street="Turn" IsAllIn="false" />
     <HandAction PlayerName="242335" HandActionType="CHECK" Amount="0" Street="River" IsAllIn="false" />
     <HandAction PlayerName="252418" HandActionType="CHECK" Amount="0" Street="River" IsAllIn="false" />        
-    <HandAction p3:type="WinningsAction" PlayerName="242335" HandActionType="WINS" Amount="7.5" Street="Summary" IsAllIn="false" PotNumber="0" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" />
+    <HandAction p3:type="WinningsAction" PlayerName="242335" HandActionType="WINS" Amount="7.5" Street="Summary" IsAllIn="false" PotNumber="1" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" />
   </Actions>
   <CommunityCards>JsTdJd4h4s</CommunityCards>
   <Players>

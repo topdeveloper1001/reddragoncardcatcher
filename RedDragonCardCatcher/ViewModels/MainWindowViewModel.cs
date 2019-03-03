@@ -110,8 +110,6 @@ namespace RedDragonCardCatcher.ViewModels
         {
             get
             {
-                return "Development";
-
                 var licenseService = ServiceLocator.Current.GetInstance<ILicenseService>();
 
                 IEnumerable<string> licenseStrings;

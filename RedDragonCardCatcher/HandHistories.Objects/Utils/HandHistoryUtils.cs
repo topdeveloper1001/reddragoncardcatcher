@@ -196,10 +196,13 @@ namespace HandHistories.Parser.Utils
         public static void SortHandActions(HandHistory handHistory)
         {
             var dealer = handHistory.DealerButtonPosition;
+            // dealer = 1
+            // dealer = 9
+
 
             var orderedPlayers = handHistory
                 .Players
-                .Skip(dealer)
+                .SkipWhile(x => x.SeatNumber <= dealer)
                 .Concat(handHistory.Players.TakeWhile(x => x.SeatNumber <= dealer))
                 .ToArray();
 

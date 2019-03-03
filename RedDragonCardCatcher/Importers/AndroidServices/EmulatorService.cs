@@ -236,7 +236,19 @@ namespace RedDragonCardCatcher.Importers
                 {
                     LogProvider.Log.Warn(this, $"Expected number of devices {emulatorsByAdb[emulatorAdb].Length} doesn't match actual number {devices.Length}. Trying to kill server and run command again with {emulatorAdb}.");
                     AdbKillServer(emulatorAdb);
-                    devices = GetAdbDevices(emulatorAdb);
+                    Task.Delay(MainJobInterval).Wait();
+
+                    var repeatDevices = GetAdbDevices(emulatorAdb);
+
+                    if (repeatDevices.Length != emulatorsByAdb[emulatorAdb].Length)
+                    {
+                        LogProvider.Log.Warn(this, $"Expected number of devices {emulatorsByAdb[emulatorAdb].Length} still doesn't match actual number {devices.Length}.");
+                        devices = devices.Concat(repeatDevices).Distinct().ToArray();
+                    }
+                    else
+                    {
+                        devices = repeatDevices;
+                    }
                 }
 
                 devices.ForEach(device =>
@@ -640,6 +652,8 @@ namespace RedDragonCardCatcher.Importers
 
                     process.StartInfo = processInfo;
                     process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+
                     process.OutputDataReceived += (s, a) =>
                     {
                         if (!string.IsNullOrEmpty(a.Data))
@@ -648,8 +662,18 @@ namespace RedDragonCardCatcher.Importers
                         }
                     };
 
+                    process.ErrorDataReceived += (s, a) =>
+                    {
+                        if (!string.IsNullOrEmpty(a.Data))
+                        {
+                            outputLines.Add(a.Data);
+                        }
+                    };
+
                     process.Start();
+
                     process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
                     process.WaitForExit(ExitTimeout);
 

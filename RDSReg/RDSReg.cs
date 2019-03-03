@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PPSReg.cs" company="Ace Poker Solutions">
+// <copyright file="RDSReg.cs" company="Ace Poker Solutions">
 // Copyright © 2019 Ace Poker Solutions. All Rights Reserved.
 // Unless otherwise noted, all materials contained in this Site are copyrights, 
 // trademarks, trade dress and/or other intellectual properties, owned, 
@@ -11,21 +11,25 @@
 //----------------------------------------------------------------------
 
 using DeployLX.Licensing.v5;
+using System.ComponentModel;
 
-namespace RedDragonCardCatcher.Security
+namespace RDSRegistration
 {
-    //internal class PPSReg : ILicenseManager
-    //{
-    //    private readonly PPSRegistration.PPSReg licenseManager = new PPSRegistration.PPSReg();
+    /// <summary>
+    /// Standard license manager
+    /// </summary>
+    [LicenseProvider(typeof(SecureLicenseManager))]
+    public class RDSReg
+    {
+        public void ResetCacheForLicense(SecureLicense license)
+        {
+            SecureLicenseManager.ResetCacheForLicense(license);
+        }
 
-    //    public void ResetCacheForLicense(SecureLicense license)
-    //    {
-    //        licenseManager.ResetCacheForLicense(license);
-    //    }
-
-    //    public SecureLicense Validate(LicenseValidationRequestInfo requestInfo)
-    //    {
-    //        return licenseManager.Validate(requestInfo);
-    //    }
-    //}
+        public SecureLicense Validate(LicenseValidationRequestInfo requestInfo)
+        {
+            var license = SecureLicenseManager.Validate(this, typeof(RDSReg), requestInfo);
+            return license;
+        }
+    }
 }

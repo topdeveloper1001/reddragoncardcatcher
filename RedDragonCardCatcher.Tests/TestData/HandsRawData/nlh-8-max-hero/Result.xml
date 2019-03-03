@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HandHistory>
+  <DateOfHandUtc>2019-02-27T07:36:26.1614662Z</DateOfHandUtc>
+  <HandId>1551252986161</HandId>
+  <DealerButtonPosition>7</DealerButtonPosition>
+  <TableName>0.1/0.2-56-292827</TableName>
+  <GameDescription>
+    <PokerFormat>CashGame</PokerFormat>
+    <Site>RedDragon</Site>
+    <GameType>NoLimitHoldem</GameType>
+    <Limit>
+      <Currency>All</Currency>
+      <SmallBlind>0.1</SmallBlind>
+      <BigBlind>0.2</BigBlind>
+      <IsAnteTable>false</IsAnteTable>
+      <Ante>0</Ante>
+    </Limit>
+    <SeatType MaxPlayers="8" />
+    <TableType>Regular</TableType>
+    <Identifier>292827</Identifier>
+  </GameDescription>
+  <Cancelled>false</Cancelled>
+  <NumPlayersSeated>0</NumPlayersSeated>
+  <TotalPot>1.1</TotalPot>
+  <Rake>0</Rake>
+  <Actions>
+    <HandAction PlayerName="219339" HandActionType="SMALL_BLIND" Amount="-0.1" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="238596" HandActionType="BIG_BLIND" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="196035" HandActionType="POSTS" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="256078" HandActionType="POSTS" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="246174" HandActionType="POSTS" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="248825" HandActionType="CALL" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="196035" HandActionType="CHECK" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="256078" HandActionType="CHECK" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="233923" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="246174" HandActionType="RAISE" Amount="-2.1" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="183128" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="219339" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="238596" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="248825" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="196035" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="256078" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />    
+    <HandAction PlayerName="246174" HandActionType="UNCALLED_BET" Amount="2.1" Street="Preflop" IsAllIn="false" />
+    <HandAction p3:type="WinningsAction" PlayerName="246174" HandActionType="WINS" Amount="1.1" Street="Summary" IsAllIn="false" PotNumber="1" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" />
+  </Actions>
+  <CommunityCards></CommunityCards>
+  <Players>
+    <Player PlayerName="238596" PlayerNick="翻云覆雨" StartingStack="39.9" Bet="0.2" Win="0" SeatNumber="1" Cards="" IsSittingOut="false" />
+    <Player PlayerName="248825" PlayerNick="疯狂c" StartingStack="29.8" Bet="0.2" Win="0" SeatNumber="2" Cards="" IsSittingOut="false" />
+    <Player PlayerName="196035" PlayerNick="玩家958817" StartingStack="20" Bet="0.2" Win="0" SeatNumber="3" Cards="8d6d" IsSittingOut="false" />
+    <Player PlayerName="256078" PlayerNick="头铁跟到底" StartingStack="40" Bet="0.2" Win="0" SeatNumber="4" Cards="" IsSittingOut="false" />
+    <Player PlayerName="233923" PlayerNick="我是好人" StartingStack="20.1" Bet="0" Win="0" SeatNumber="5" Cards="" IsSittingOut="false" />
+    <Player PlayerName="246174" PlayerNick="广乙灯" StartingStack="40" Bet="2.3" Win="1.1" SeatNumber="6" Cards="" IsSittingOut="false" />
+    <Player PlayerName="183128" PlayerNick="宜昌周润发" StartingStack="23.36" Bet="0" Win="0" SeatNumber="7" Cards="" IsSittingOut="false" />
+    <Player PlayerName="219339" PlayerNick="开哥518" StartingStack="25.23" Bet="0.1" Win="0" SeatNumber="8" Cards="" IsSittingOut="false" />
+  </Players>
+  <HeroName>196035</HeroName>
+</HandHistory>

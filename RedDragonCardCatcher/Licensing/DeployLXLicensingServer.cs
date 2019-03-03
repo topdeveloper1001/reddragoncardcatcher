@@ -38,7 +38,7 @@ namespace RedDragonCardCatcher.Licensing
         /// <remarks/>
         public DeployLXLicensingServer()
         {
-            this.Url = "http://support.acepokersolutions.com/LicensingWS/LicenseServerPPP.asmx";
+            this.Url = "http://support.acepokersolutions.com/LicensingWS/LicenseServerRD.asmx";
         }
 
         /// <remarks/>

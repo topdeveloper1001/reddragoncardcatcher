@@ -27,7 +27,7 @@ namespace RedDragonCardCatcher.Services
 
         private const int maxSizeLogBackups = 5;
 
-        private static readonly string[] logsPatterns = new string[] { "ppp-*" };
+        private static readonly string[] logsPatterns = new string[] { "rdc-*" };
 
         /// <summary>
         /// Clear folder with logs

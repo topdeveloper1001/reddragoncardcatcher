@@ -1,0 +1,1317 @@
+{
+  "Packets": [
+    {
+      "PackageType": "RaceMTTResponse",
+      "Time": "2019-02-26T12:49:07.2338956+03:00",
+      "Content": {
+        "raceId": 1983,
+        "raceName": "22超快速-保底2000",
+        "startTime": 1551191400000,
+        "maxTableCount": 9,
+        "maxRaceCount": 1000,
+        "raceLimit": "",
+        "startStack": 15000,
+        "roomId": 191059,
+        "upBlind": 480,
+        "signUpType": 1,
+        "signUpCost": "3:2000",
+        "awardType": 2,
+        "Bonus": 0,
+        "floatpoolType": 20,
+        "actionTimeout": 20,
+        "minRaceCount": 3,
+        "rEndBlind": 11,
+        "endSignupBlind": 11,
+        "rebuyNum": 0,
+        "reentryNum": 3,
+        "addonNum": 0,
+        "addonChip": 10000,
+        "awardTemplates": [],
+        "playersNum": 71,
+        "signUpFeePercent": 10,
+        "avgChips": 21206,
+        "minChips": 1550,
+        "maxChips": 80382,
+        "curBlindLevel": 7,
+        "curBlindRestTime": 478,
+        "Incode": "146267",
+        "restPlayerNum": 58,
+        "curTableNum": 7,
+        "rebuyCost": "3:2000",
+        "rebuyFee": 10,
+        "raceType": 2,
+        "isStarted": true,
+        "signUpStatus": 1
+      }
+    },
+    {
+      "PackageType": "JoinMTTRoomResponse",
+      "Time": "2019-02-26T12:49:07.2338956+03:00",
+      "Content": {
+        "roomId": 191059,
+        "invitationCode": "153805",
+        "Bb": 4000,
+        "Pot": 9000,
+        "sitInfoes": [
+          {
+            "sitId": 0,
+            "playerId": 248713,
+            "Action": 0,
+            "actionTime": 1551174513295,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 12525,
+            "needCall": 4000,
+            "State": 4,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "g703698",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 2
+          },
+          {
+            "sitId": 1,
+            "playerId": 255964,
+            "Action": 0,
+            "actionTime": 1551174522346,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 54198,
+            "needCall": 4000,
+            "State": 4,
+            "Ante": 500,
+            "Icon": "images/41591636-338b-4703-b9ca-12154c529fba.jpeg",
+            "playerName": "河豚王",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 2
+          },
+          {
+            "sitId": 2,
+            "playerId": 0,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 0,
+            "needCall": 0,
+            "State": 0,
+            "Ante": 0,
+            "Icon": "",
+            "playerName": "",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 3,
+            "playerId": 249780,
+            "Action": 0,
+            "actionTime": 1551174527417,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 73120,
+            "needCall": 4000,
+            "State": 4,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "玩家159",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 2
+          },
+          {
+            "sitId": 4,
+            "playerId": 234615,
+            "Action": 27,
+            "actionTime": 1551174527964,
+            "Bet": 0,
+            "isDealer": true,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 8500,
+            "needCall": 4000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "陌都",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 5,
+            "playerId": 0,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 0,
+            "needCall": 0,
+            "State": 0,
+            "Ante": 0,
+            "Icon": "",
+            "playerName": "",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 6,
+            "playerId": 0,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 0,
+            "needCall": 0,
+            "State": 0,
+            "Ante": 0,
+            "Icon": "",
+            "playerName": "",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 7,
+            "playerId": 253437,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 2000,
+            "isDealer": false,
+            "isSB": true,
+            "isBB": false,
+            "Bankroll": 41364,
+            "needCall": 2000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "不赢不行啊",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 8,
+            "playerId": 245048,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 4000,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": true,
+            "Bankroll": 52792,
+            "needCall": 0,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "images/0b3fe00d-777f-4937-adda-5c71028eb5a4.jpeg",
+            "playerName": "微风撩人",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          }
+        ],
+        "roomType": 2,
+        "createrId": 10000000,
+        "Name": "22超快速-保底2000",
+        "Ante": 500,
+        "Upbinld": 180,
+        "actionTime": 20,
+        "gameId": 3,
+        "Pots": [
+          {
+            "winnerIds": [
+              234615,
+              249780,
+              248713,
+              245048,
+              253437,
+              255964
+            ],
+            "Gold": 3000,
+            "playerIds": [
+              234615,
+              249780,
+              248713,
+              245048,
+              253437,
+              255964
+            ],
+            "potType": 1,
+            "potId": 1
+          }
+        ],
+        "pubCard": {
+          "Cards": []
+        },
+        "signUpCost": "3:2000",
+        "signUpFeePercent": 10,
+        "baseBankroll": 5000,
+        "reBuyRestNum": 0,
+        "addRestNum": 1,
+        "rEndBlind": 10,
+        "addonChips": 10000,
+        "curBlindRank": 17,
+        "Mycards": [],
+        "handPowerEnum": null,
+        "joinPlayerId": 196035,
+        "curBlindRestTime": 152,
+        "endSignupBlind": 10,
+        "rebuyCost": "3:2000",
+        "rebuySurchargePercent": 10,
+        "signUpType": 1,
+        "Sb": 2000,
+        "playType": 0,
+        "raiseLimitFixed": 0,
+        "raiseLimitPot": "0.0",
+        "Items": [
+          {
+            "itemId": 1,
+            "Count": 50,
+            "State": "POST_FLOP"
+          },
+          {
+            "itemId": 1,
+            "Count": 30,
+            "State": "POST_TURN"
+          },
+          {
+            "itemId": 1,
+            "Count": 30,
+            "State": "POST_RIVER"
+          }
+        ]
+      }
+    },
+    {
+      "PackageType": "mttDataResponse",
+      "Time": "2019-02-26T12:49:07.4818833+03:00",
+      "Content": {
+        "signUpCost": "3:2000",
+        "signUpFee": 10,
+        "baseBankroll": 5000,
+        "reBuyRestNum": 3,
+        "addRestNum": 1,
+        "rEndBlind": 10,
+        "addonChips": 10000,
+        "curBlindRank": 17,
+        "raceBlinds": [
+          {
+            "blindRank": 1,
+            "smallBlind": 25,
+            "Ante": 0
+          },
+          {
+            "blindRank": 2,
+            "smallBlind": 50,
+            "Ante": 0
+          },
+          {
+            "blindRank": 3,
+            "smallBlind": 75,
+            "Ante": 0
+          },
+          {
+            "blindRank": 4,
+            "smallBlind": 100,
+            "Ante": 0
+          },
+          {
+            "blindRank": 5,
+            "smallBlind": 125,
+            "Ante": 25
+          },
+          {
+            "blindRank": 6,
+            "smallBlind": 150,
+            "Ante": 25
+          },
+          {
+            "blindRank": 7,
+            "smallBlind": 175,
+            "Ante": 50
+          },
+          {
+            "blindRank": 8,
+            "smallBlind": 200,
+            "Ante": 50
+          },
+          {
+            "blindRank": 9,
+            "smallBlind": 300,
+            "Ante": 50
+          },
+          {
+            "blindRank": 10,
+            "smallBlind": 400,
+            "Ante": 100
+          },
+          {
+            "blindRank": 11,
+            "smallBlind": 500,
+            "Ante": 150
+          },
+          {
+            "blindRank": 12,
+            "smallBlind": 600,
+            "Ante": 150
+          },
+          {
+            "blindRank": 13,
+            "smallBlind": 800,
+            "Ante": 200
+          },
+          {
+            "blindRank": 14,
+            "smallBlind": 1000,
+            "Ante": 200
+          },
+          {
+            "blindRank": 15,
+            "smallBlind": 1200,
+            "Ante": 300
+          },
+          {
+            "blindRank": 16,
+            "smallBlind": 1500,
+            "Ante": 500
+          },
+          {
+            "blindRank": 17,
+            "smallBlind": 2000,
+            "Ante": 500
+          },
+          {
+            "blindRank": 18,
+            "smallBlind": 3000,
+            "Ante": 1000
+          },
+          {
+            "blindRank": 19,
+            "smallBlind": 4000,
+            "Ante": 1000
+          },
+          {
+            "blindRank": 20,
+            "smallBlind": 5000,
+            "Ante": 1500
+          },
+          {
+            "blindRank": 21,
+            "smallBlind": 6000,
+            "Ante": 1500
+          },
+          {
+            "blindRank": 22,
+            "smallBlind": 8000,
+            "Ante": 2000
+          },
+          {
+            "blindRank": 23,
+            "smallBlind": 10000,
+            "Ante": 2000
+          },
+          {
+            "blindRank": 24,
+            "smallBlind": 12000,
+            "Ante": 3000
+          },
+          {
+            "blindRank": 25,
+            "smallBlind": 15000,
+            "Ante": 5000
+          },
+          {
+            "blindRank": 26,
+            "smallBlind": 20000,
+            "Ante": 5000
+          },
+          {
+            "blindRank": 27,
+            "smallBlind": 30000,
+            "Ante": 10000
+          },
+          {
+            "blindRank": 28,
+            "smallBlind": 40000,
+            "Ante": 10000
+          },
+          {
+            "blindRank": 29,
+            "smallBlind": 50000,
+            "Ante": 15000
+          },
+          {
+            "blindRank": 30,
+            "smallBlind": 60000,
+            "Ante": 15000
+          },
+          {
+            "blindRank": 31,
+            "smallBlind": 80000,
+            "Ante": 20000
+          },
+          {
+            "blindRank": 32,
+            "smallBlind": 100000,
+            "Ante": 20000
+          },
+          {
+            "blindRank": 33,
+            "smallBlind": 150000,
+            "Ante": 50000
+          },
+          {
+            "blindRank": 34,
+            "smallBlind": 200000,
+            "Ante": 50000
+          },
+          {
+            "blindRank": 35,
+            "smallBlind": 400000,
+            "Ante": 100000
+          },
+          {
+            "blindRank": 36,
+            "smallBlind": 500000,
+            "Ante": 150000
+          },
+          {
+            "blindRank": 37,
+            "smallBlind": 600000,
+            "Ante": 150000
+          },
+          {
+            "blindRank": 38,
+            "smallBlind": 800000,
+            "Ante": 200000
+          },
+          {
+            "blindRank": 39,
+            "smallBlind": 1000000,
+            "Ante": 200000
+          },
+          {
+            "blindRank": 40,
+            "smallBlind": 2000000,
+            "Ante": 500000
+          },
+          {
+            "blindRank": 41,
+            "smallBlind": 3000000,
+            "Ante": 500000
+          },
+          {
+            "blindRank": 42,
+            "smallBlind": 4000000,
+            "Ante": 500000
+          },
+          {
+            "blindRank": 43,
+            "smallBlind": 5000000,
+            "Ante": 1500000
+          },
+          {
+            "blindRank": 44,
+            "smallBlind": 6000000,
+            "Ante": 1500000
+          },
+          {
+            "blindRank": 45,
+            "smallBlind": 8000000,
+            "Ante": 2000000
+          },
+          {
+            "blindRank": 46,
+            "smallBlind": 10000000,
+            "Ante": 2000000
+          },
+          {
+            "blindRank": 47,
+            "smallBlind": 15000000,
+            "Ante": 5000000
+          },
+          {
+            "blindRank": 48,
+            "smallBlind": 20000000,
+            "Ante": 5000000
+          },
+          {
+            "blindRank": 49,
+            "smallBlind": 40000000,
+            "Ante": 10000000
+          },
+          {
+            "blindRank": 50,
+            "smallBlind": 50000000,
+            "Ante": 15000000
+          },
+          {
+            "blindRank": 51,
+            "smallBlind": 60000000,
+            "Ante": 15000000
+          }
+        ],
+        "signUpType": 1
+      }
+    },
+    {
+      "PackageType": "ErrorMsg",
+      "Time": "2019-02-26T12:49:07.7064437+03:00",
+      "Content": {
+        "codes": "ErrRoomNotOfferJp",
+        "Msg": ""
+      }
+    },
+    {
+      "PackageType": "NotifyNewCommonRoom",
+      "Time": "2019-02-26T12:49:14.2273739+03:00",
+      "Content": {
+        "roomId": 0,
+        "roomName": "",
+        "gammeId": 0
+      }
+    },
+    {
+      "PackageType": "NotifyNewCommonRoom",
+      "Time": "2019-02-26T12:49:14.2312792+03:00",
+      "Content": {
+        "roomId": 191663,
+        "roomName": "0.1/0.2-65",
+        "gammeId": 1551174516
+      }
+    },
+    {
+      "PackageType": "PlayerFoldResponse",
+      "Time": "2019-02-26T12:49:14.4380613+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 9000,
+        "actionPlayerInfo": {
+          "sitId": 7,
+          "playerId": 253437,
+          "Action": 27,
+          "actionTime": 1551174540281,
+          "needCall": 2000
+        },
+        "doPlayerFoldResponse": {
+          "playerId": 234615,
+          "sitId": 4,
+          "Action": 2,
+          "Bankroll": 8500,
+          "Bet": 0
+        },
+        "highChip": 4000,
+        "Isfold": 1,
+        "baseRaise": 4000
+      }
+    },
+    {
+      "PackageType": "PlayerRaiseResponse",
+      "Time": "2019-02-26T12:49:15.6662606+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 17000,
+        "actionPlayerInfo": {
+          "sitId": 8,
+          "playerId": 245048,
+          "Action": 27,
+          "actionTime": 1551174541677,
+          "needCall": 6000
+        },
+        "doPlayerRaiseResponse": {
+          "playerId": 253437,
+          "sitId": 7,
+          "Action": 8,
+          "Bankroll": 33364,
+          "Bet": 10000
+        },
+        "highChip": 10000,
+        "baseRaise": 6000
+      }
+    },
+    {
+      "PackageType": "NotifyGainsResponse",
+      "Time": "2019-02-26T12:49:19.3589562+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pots": [
+          {
+            "winnerIds": [
+              253437
+            ],
+            "Gold": 17000,
+            "playerIds": [
+              253437
+            ],
+            "potType": 1,
+            "potId": 1
+          }
+        ],
+        "playerGainsInfoes": [
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                8,
+                2
+              ]
+            },
+            "playerId": 248713,
+            "Bankroll": 12525,
+            "sitId": 0,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                7,
+                3
+              ]
+            },
+            "playerId": 255964,
+            "Bankroll": 54198,
+            "sitId": 1,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                6,
+                10
+              ]
+            },
+            "playerId": 249780,
+            "Bankroll": 73120,
+            "sitId": 3,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                7,
+                11
+              ]
+            },
+            "playerId": 234615,
+            "Bankroll": 8500,
+            "sitId": 4,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                3,
+                2
+              ]
+            },
+            "playerId": 253437,
+            "Bankroll": 50364,
+            "sitId": 7,
+            "Gains": 6500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                7,
+                2
+              ]
+            },
+            "playerId": 245048,
+            "Bankroll": 52792,
+            "sitId": 8,
+            "Gains": -4500,
+            "bestHandCard": null
+          }
+        ],
+        "isRiverShowDown": true,
+        "pubCard": {
+          "Cards": []
+        },
+        "doPlayerCallResponse": {
+          "playerId": 245048,
+          "sitId": 8,
+          "Action": 2,
+          "Bankroll": 52792,
+          "Bet": 0
+        }
+      }
+    },
+    {
+      "PackageType": "NotifyNextRoundStartRoomResponse",
+      "Time": "2019-02-26T12:49:23.8625601+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "sitInfoes": [
+          {
+            "sitId": 0,
+            "playerId": 248713,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 4000,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": true,
+            "Bankroll": 8025,
+            "needCall": 0,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "g703698",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "aGroupOfTag": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 1,
+            "playerId": 255964,
+            "Action": 27,
+            "actionTime": 1551174549824,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 53698,
+            "needCall": 4000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "images/41591636-338b-4703-b9ca-12154c529fba.jpeg",
+            "playerName": "河豚王",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "aGroupOfTag": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 2,
+            "playerId": 0,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 0,
+            "needCall": 0,
+            "State": 0,
+            "Ante": 0,
+            "Icon": "",
+            "playerName": "",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 3,
+            "playerId": 249780,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 72620,
+            "needCall": 4000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "玩家159",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "aGroupOfTag": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 4,
+            "playerId": 234615,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 8000,
+            "needCall": 4000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "陌都",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "aGroupOfTag": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 5,
+            "playerId": 0,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 0,
+            "needCall": 0,
+            "State": 0,
+            "Ante": 0,
+            "Icon": "",
+            "playerName": "",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 6,
+            "playerId": 0,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": false,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 0,
+            "needCall": 0,
+            "State": 0,
+            "Ante": 0,
+            "Icon": "",
+            "playerName": "",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 7,
+            "playerId": 253437,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 0,
+            "isDealer": true,
+            "isSB": false,
+            "isBB": false,
+            "Bankroll": 49864,
+            "needCall": 4000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "",
+            "playerName": "不赢不行啊",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "aGroupOfTag": 0,
+            "Endaction": 0
+          },
+          {
+            "sitId": 8,
+            "playerId": 245048,
+            "Action": 0,
+            "actionTime": 0,
+            "Bet": 2000,
+            "isDealer": false,
+            "isSB": true,
+            "isBB": false,
+            "Bankroll": 50292,
+            "needCall": 2000,
+            "State": 2,
+            "Ante": 500,
+            "Icon": "images/0b3fe00d-777f-4937-adda-5c71028eb5a4.jpeg",
+            "playerName": "微风撩人",
+            "roomId": 191059,
+            "gameId": 3,
+            "Managed": false,
+            "isStraddle": false,
+            "Isforce": false,
+            "takeMascot": 0,
+            "aGroupOfTag": 0,
+            "Endaction": 0
+          }
+        ],
+        "Pot": 9000,
+        "roomType": 2,
+        "Bb": 4000,
+        "Ante": 500,
+        "upBlindTime": 135,
+        "endTime": 0,
+        "Sb": 2000
+      }
+    },
+    {
+      "PackageType": "NotifyNewCommonRoom",
+      "Time": "2019-02-26T12:49:30.9987482+03:00",
+      "Content": {
+        "roomId": 0,
+        "roomName": "",
+        "gammeId": 0
+      }
+    },
+    {
+      "PackageType": "NotifyNewCommonRoom",
+      "Time": "2019-02-26T12:49:31.2077391+03:00",
+      "Content": {
+        "roomId": 291664,
+        "roomName": "5/10-20",
+        "gammeId": 1551174532
+      }
+    },
+    {
+      "PackageType": "PlayerFoldResponse",
+      "Time": "2019-02-26T12:49:34.2607223+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 9000,
+        "actionPlayerInfo": {
+          "sitId": 3,
+          "playerId": 249780,
+          "Action": 27,
+          "actionTime": 1551174560176,
+          "needCall": 4000
+        },
+        "doPlayerFoldResponse": {
+          "playerId": 255964,
+          "sitId": 1,
+          "Action": 2,
+          "Bankroll": 53698,
+          "Bet": 0
+        },
+        "highChip": 4000,
+        "Isfold": 1,
+        "baseRaise": 4000
+      }
+    },
+    {
+      "PackageType": "PlayerFoldResponse",
+      "Time": "2019-02-26T12:49:34.6645564+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 9000,
+        "actionPlayerInfo": {
+          "sitId": 4,
+          "playerId": 234615,
+          "Action": 19,
+          "actionTime": 1551174560699,
+          "needCall": 4000
+        },
+        "doPlayerFoldResponse": {
+          "playerId": 249780,
+          "sitId": 3,
+          "Action": 2,
+          "Bankroll": 72620,
+          "Bet": 0
+        },
+        "highChip": 4000,
+        "Isfold": 1,
+        "baseRaise": 4000
+      }
+    },
+    {
+      "PackageType": "PlayerFoldResponse",
+      "Time": "2019-02-26T12:49:38.9253095+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 9000,
+        "actionPlayerInfo": {
+          "sitId": 7,
+          "playerId": 253437,
+          "Action": 27,
+          "actionTime": 1551174564936,
+          "needCall": 4000
+        },
+        "doPlayerFoldResponse": {
+          "playerId": 234615,
+          "sitId": 4,
+          "Action": 2,
+          "Bankroll": 8000,
+          "Bet": 0
+        },
+        "highChip": 4000,
+        "Isfold": 1,
+        "baseRaise": 4000
+      }
+    },
+    {
+      "PackageType": "PlayerFoldResponse",
+      "Time": "2019-02-26T12:49:39.3419168+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 9000,
+        "actionPlayerInfo": {
+          "sitId": 8,
+          "playerId": 245048,
+          "Action": 27,
+          "actionTime": 1551174565353,
+          "needCall": 2000
+        },
+        "doPlayerFoldResponse": {
+          "playerId": 253437,
+          "sitId": 7,
+          "Action": 2,
+          "Bankroll": 49864,
+          "Bet": 0
+        },
+        "highChip": 4000,
+        "Isfold": 1,
+        "baseRaise": 4000
+      }
+    },
+    {
+      "PackageType": "PlayerRaiseResponse",
+      "Time": "2019-02-26T12:49:41.9795676+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pot": 17000,
+        "actionPlayerInfo": {
+          "sitId": 0,
+          "playerId": 248713,
+          "Action": 19,
+          "actionTime": 1551174567892,
+          "needCall": 6000
+        },
+        "doPlayerRaiseResponse": {
+          "playerId": 245048,
+          "sitId": 8,
+          "Action": 8,
+          "Bankroll": 42292,
+          "Bet": 10000
+        },
+        "highChip": 10000,
+        "baseRaise": 6000
+      }
+    },
+    {
+      "PackageType": "NotifyGainsResponse",
+      "Time": "2019-02-26T12:49:44.613304+03:00",
+      "Content": {
+        "roomId": 191059,
+        "gameId": 3,
+        "Pots": [
+          {
+            "winnerIds": [
+              245048
+            ],
+            "Gold": 17000,
+            "playerIds": [
+              245048
+            ],
+            "potType": 1,
+            "potId": 1
+          }
+        ],
+        "playerGainsInfoes": [
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                2,
+                12
+              ]
+            },
+            "playerId": 248713,
+            "Bankroll": 8025,
+            "sitId": 0,
+            "Gains": -4500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                11,
+                4
+              ]
+            },
+            "playerId": 255964,
+            "Bankroll": 53698,
+            "sitId": 1,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                6,
+                9
+              ]
+            },
+            "playerId": 249780,
+            "Bankroll": 72620,
+            "sitId": 3,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                2,
+                5
+              ]
+            },
+            "playerId": 234615,
+            "Bankroll": 8000,
+            "sitId": 4,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                8,
+                9
+              ]
+            },
+            "playerId": 253437,
+            "Bankroll": 49864,
+            "sitId": 7,
+            "Gains": -500,
+            "bestHandCard": null
+          },
+          {
+            "handCard": null,
+            "handPower": {
+              "handPowerEnum": {
+                "handPowerTypes": "HighCard"
+              },
+              "Cards": [
+                14,
+                13
+              ]
+            },
+            "playerId": 245048,
+            "Bankroll": 59292,
+            "sitId": 8,
+            "Gains": 6500,
+            "bestHandCard": null
+          }
+        ],
+        "isRiverShowDown": true,
+        "pubCard": {
+          "Cards": []
+        },
+        "doPlayerCallResponse": {
+          "playerId": 248713,
+          "sitId": 0,
+          "Action": 2,
+          "Bankroll": 8025,
+          "Bet": 0
+        }
+      }
+    }
+  ]
+}

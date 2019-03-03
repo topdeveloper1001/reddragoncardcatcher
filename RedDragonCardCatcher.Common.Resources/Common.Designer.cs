@@ -88,7 +88,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Which database would you like to setup the PPPoker Card Catcher for? You can change database in the settings later..
+        ///   Looks up a localized string similar to Which database would you like to setup the Red Dragon Card Catcher for? You can change database in the settings later..
         /// </summary>
         internal static string Common_DBSelection_Notice {
             get {
@@ -106,7 +106,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher - Select database.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher - Select database.
         /// </summary>
         internal static string Common_DBSelection_Title {
             get {
@@ -124,7 +124,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fatal error: Dragon Poker Card Catcher will be closed.
+        ///   Looks up a localized string similar to Fatal error: Red Dragon Card Catcher will be closed.
         /// </summary>
         internal static string Common_FatalError {
             get {
@@ -304,8 +304,8 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher
-        ///The Dragon Poker Card Catcher is an add-on application that will allow you to capture and run a HUD through DriveHUD/HM2/HM3/PT4. It includes a fully functional 7 day trial. Click Try to enable the trial..
+        ///   Looks up a localized string similar to Red Dragon Card Catcher
+        ///The Red Dragon Card Catcher is an add-on application that will allow you to capture and run a HUD through DriveHUD/HM2/HM3/PT4. It includes a fully functional 7 day trial. Click Try to enable the trial..
         /// </summary>
         internal static string Common_RegistrationView_GreetingText {
             get {
@@ -359,7 +359,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter the following data to register your version of Dragon Poker Card Catcher:.
+        ///   Looks up a localized string similar to Please enter the following data to register your version of Red Dragon Card Catcher:.
         /// </summary>
         internal static string Common_RegistrationView_RegisterText {
             get {
@@ -386,7 +386,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you. Dragon Poker Card Catcher has been successfully registered!.
+        ///   Looks up a localized string similar to Thank you. Red Dragon Card Catcher has been successfully registered!.
         /// </summary>
         internal static string Common_RegistrationView_SuccessText {
             get {
@@ -395,7 +395,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher Registration.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher Registration.
         /// </summary>
         internal static string Common_RegistrationView_Title {
             get {
@@ -413,7 +413,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You trial period is over. Please register your version of Dragon Poker Card Catcher.
+        ///   Looks up a localized string similar to You trial period is over. Please register your version of Red Dragon Card Catcher.
         /// </summary>
         internal static string Common_RegistrationView_TrialExpiredText {
             get {
@@ -593,7 +593,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PPPoker Card Catcher detected that Allow Vector Scaling and Allow New Font Scaling options are enabled in PT4 (Hud-&gt;Edit Hud Options-&gt;General Settings-&gt;Advanced). If these options are enabled HUDs will be scaled incorrectly, because PT4 expects that width of poker table window is greater than its height. Do you want to disable it?.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher detected that Allow Vector Scaling and Allow New Font Scaling options are enabled in PT4 (Hud-&gt;Edit Hud Options-&gt;General Settings-&gt;Advanced). If these options are enabled HUDs will be scaled incorrectly, because PT4 expects that width of poker table window is greater than its height. Do you want to disable it?.
         /// </summary>
         internal static string Common_Settings_PT4ConfigurationText {
             get {
@@ -611,7 +611,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default PT4 HUDs aren&apos;t compatible with Dragon Poker client, because PT4 expects that width of poker table window is greater than its height. In this case some parts of HUDs will be outside of table and you will need to move them manually. PPPoker Card Catcher can install predefined HUD with correct positions (this HUD is designed for club tables). Do you want to install it?.
+        ///   Looks up a localized string similar to Default PT4 HUDs aren&apos;t compatible with Red Dragon client, because PT4 expects that width of poker table window is greater than its height. In this case some parts of HUDs will be outside of table and you will need to move them manually. Red Dragon Card Catcher can install predefined HUD with correct positions (this HUD is designed for club tables). Do you want to install it?.
         /// </summary>
         internal static string Common_Settings_PT4HUDInstallationText {
             get {
@@ -620,7 +620,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher Settings.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher Settings.
         /// </summary>
         internal static string Common_Settings_Title {
             get {
@@ -665,7 +665,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher.
         /// </summary>
         internal static string Common_Title {
             get {
@@ -710,7 +710,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher v.{0} is available.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher v.{0} is available.
         /// </summary>
         internal static string Common_UpdateView_Header {
             get {
@@ -728,7 +728,7 @@ namespace RedDragonCardCatcher.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dragon Poker Card Catcher Update Notice.
+        ///   Looks up a localized string similar to Red Dragon Card Catcher Update Notice.
         /// </summary>
         internal static string Common_UpdateView_Title {
             get {
