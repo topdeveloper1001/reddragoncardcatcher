@@ -17,7 +17,6 @@ static const char *format = ">>>>>>>>Java_layaair_game_browser_ConchJNI_callConc
 
 static subhook_t hook_handle;
 static int ipc_file;
-static pid_t process_id;
 
 static int my_android_log_print(int prio, const char *tag, const char *fmt, ...) {
     subhook_remove(hook_handle);
@@ -37,15 +36,14 @@ static int my_android_log_print(int prio, const char *tag, const char *fmt, ...)
             // const char *callbackFuncton = va_arg(args_view, const char *);
 
             // ipc msg format
-            const size_t header_size = SignatureLen + sizeof(process_id);
-            const size_t payload_len = strlen(jsonParam);
+            const uint32_t payload_len = strlen(jsonParam);
+            const size_t header_size = SignatureLen + sizeof(payload_len);
             const size_t full_len = header_size + payload_len;
 
             char *buf = alloca(full_len);
-
             memcpy(buf, signature, SignatureLen);
-            memcpy(buf + SignatureLen, &process_id, sizeof(process_id));
-            memcpy(buf + SignatureLen + sizeof(process_id), jsonParam, payload_len);
+            memcpy(buf + SignatureLen, &payload_len, sizeof(payload_len));
+            memcpy(buf + header_size, jsonParam, payload_len);
 
             /*ssize_t written = */ write(ipc_file, buf, full_len);
 
@@ -72,8 +70,6 @@ void __attribute__((constructor)) hook() {
         //__android_log_print(ANDROID_LOG_VERBOSE, "CRAAAASH", "fopen(): %s", e);
         return;
     }
-
-    process_id = getpid();
 
     hook_handle = subhook_new((void *)__android_log_print, (void *)my_android_log_print, 0);
 
