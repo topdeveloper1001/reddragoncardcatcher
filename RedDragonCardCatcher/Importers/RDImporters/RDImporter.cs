@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IRDImporter.cs" company="Ace Poker Solutions">
+// <copyright file="RDImporter.cs" company="Ace Poker Solutions">
 // Copyright © 2019 Ace Poker Solutions. All Rights Reserved.
 // Unless otherwise noted, all materials contained in this Site are copyrights, 
 // trademarks, trade dress and/or other intellectual properties, owned, 
@@ -10,6 +10,7 @@
 // </copyright>
 //----------------------------------------------------------------------
 
+using ConcurrentCollections;
 using HandHistories.Objects.Hand;
 using HandHistories.Objects.Players;
 using Microsoft.Practices.ServiceLocation;
@@ -27,6 +28,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RedDragonCardCatcher.Importers
@@ -109,8 +111,9 @@ namespace RedDragonCardCatcher.Importers
         {
             var dataManager = ServiceLocator.Current.GetInstance<IDataManager>();
             var handBuilder = ServiceLocator.Current.GetInstance<IRDHandBuilder>();
-            var detectedTables = new HashSet<IntPtr>();
+            var detectedTables = new ConcurrentHashSet<IntPtr>();
             var handHistoriesToProcess = new ConcurrentDictionary<long, List<HandHistoryData>>();
+            var outOfRoomTasks = new ConcurrentDictionary<IntPtr, OutOfRoomTask>();
 
             while (!cancellationTokenSource.IsCancellationRequested)
             {
@@ -124,23 +127,25 @@ namespace RedDragonCardCatcher.Importers
 
                     var data = dataManager.ProcessData(capturedData.Data);
 #if DEBUG
-                    LogPacket(capturedData);
+                    // LogPacket(capturedData);
 #endif
                     if (!RDPackage.TryParse(data, out RDPackage package))
                     {
                         continue;
                     }
 
+                    LogPackage(package, capturedData.WindowHandle);
+
                     if (!IsAllowedPackage(package))
                     {
                         continue;
                     }
 
-                    LogPackage(package, capturedData.WindowHandle);
-
                     if (!detectedTables.Contains(capturedData.WindowHandle))
                     {
                         detectedTables.Add(capturedData.WindowHandle);
+
+                        outOfRoomTasks.TryAdd(capturedData.WindowHandle, new OutOfRoomTask());
 
                         if (package.PackageType == RDPackageType.JoinRoomResponse ||
                             package.PackageType == RDPackageType.JoinSNGRoomResponse ||
@@ -155,6 +160,11 @@ namespace RedDragonCardCatcher.Importers
                             LogProvider.Log.Info(this, $"Room was opened before catcher. Data can't be captured. [{capturedData.WindowHandle}]");
                             databaseService.SendWarningRequest("Notifications_HudLayout_PreLoadingText_CanNotBeCapturedText", capturedData.WindowHandle);
                         }
+                    }
+
+                    if (outOfRoomTasks.TryGetValue(capturedData.WindowHandle, out OutOfRoomTask outOfRoomTask))
+                    {
+                        outOfRoomTask.Cancel();
                     }
 
                     if (handBuilder.TryBuild(package, capturedData.WindowHandle, out HandHistory handHistory))
@@ -182,10 +192,13 @@ namespace RedDragonCardCatcher.Importers
                         package.PackageType == RDPackageType.OutSngRoomResponse ||
                         package.PackageType == RDPackageType.AdvOutRoomResponse)
                     {
-                        LogProvider.Log.Info(this, $"User left room. [{capturedData.WindowHandle}]");
+                        outOfRoomTask?.Run(() =>
+                        {
+                            LogProvider.Log.Info(this, $"User left room. [{capturedData.WindowHandle}]");
 
-                        SendCloseHUDRequest(capturedData.WindowHandle);
-                        detectedTables.Remove(capturedData.WindowHandle);
+                            SendCloseHUDRequest(capturedData.WindowHandle);
+                            detectedTables.TryRemove(capturedData.WindowHandle);
+                        });
                     }
                 }
                 catch (Exception e)
@@ -201,12 +214,25 @@ namespace RedDragonCardCatcher.Importers
         {
             switch (package.PackageType)
             {
-                case RDPackageType.RoomUpdateResponse:
-                case RDPackageType.CommonRoomListResponse:
-                    return false;
+                case RDPackageType.JoinRoomResponse:
+                case RDPackageType.JoinSNGRoomResponse:
+                case RDPackageType.JoinMTTRoomResponse:
+                case RDPackageType.OutRoomResponse:
+                case RDPackageType.OutSngRoomResponse:
+                case RDPackageType.AdvOutRoomResponse:
+                case RDPackageType.RaceMTTResponse:
+                case RDPackageType.NotifyGainsResponse:
+                case RDPackageType.NotifyNextRoundStartRoomResponse:
+                case RDPackageType.NotifyNextRoundStartResponse:
+                case RDPackageType.PlayerCallResponse:
+                case RDPackageType.PlayerFoldResponse:
+                case RDPackageType.PlayerCheckResponse:
+                case RDPackageType.PlayerRaiseResponse:
+                case RDPackageType.NotifyFlopRoundResponse:
+                    return true;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -392,10 +418,20 @@ namespace RedDragonCardCatcher.Importers
         {
             try
             {
-                if (package.PackageType == RDPackageType.HeartbeatResponse ||
-                    package.PackageType == RDPackageType.HeartbeatRequest)
+                switch (package.PackageType)
                 {
-                    return;
+                    case RDPackageType.HeartbeatResponse:
+                    case RDPackageType.HeartbeatRequest:
+                    case RDPackageType.RoomUpdateResponse:
+                    case RDPackageType.CommonRoomListResponse:
+                    case RDPackageType.RedPacketActivityResponse:
+                    case RDPackageType.SitInfo:
+                    case RDPackageType.showRankConfigRes:
+                    case RDPackageType.JackpotInfoResponse:
+                    case RDPackageType.NotifyNewCommonRoom:
+                    case RDPackageType.RoomUpdateNotify:
+                    case RDPackageType.WorldMessageNotify:
+                        return;
                 }
 
                 if (!SerializationHelper.TryDeserialize(package.Body, out T packageContent))
@@ -407,7 +443,7 @@ namespace RedDragonCardCatcher.Importers
                 {
                     PackageType = package.PackageType,
                     Content = packageContent,
-                    Time = DateTime.Now
+                    Time = package.Timestamp
                 };
 
                 var json = JsonConvert.SerializeObject(packageJson, Formatting.Indented, new StringEnumConverter());
@@ -449,6 +485,45 @@ namespace RedDragonCardCatcher.Importers
 
             public T Content { get; set; }
         }
+
 #endif
+
+        private class OutOfRoomTask
+        {
+            private const int delay = 3000;
+
+            private CancellationTokenSource cancellationTokenSource;
+
+            public void Cancel()
+            {
+                cancellationTokenSource?.Cancel();
+                cancellationTokenSource = null;
+            }
+
+            public void Run(Action action)
+            {
+                cancellationTokenSource = new CancellationTokenSource();
+                var cancellationToken = cancellationTokenSource.Token;
+
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        Task.Delay(delay).Wait(cancellationToken);
+                    }
+                    catch
+                    {
+                        return;
+                    }
+
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    action();
+                });
+            }
+        }
     }
 }

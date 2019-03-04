@@ -173,7 +173,7 @@ namespace RedDragonCardCatcher.Importers
                 LogProvider.Log.Warn(this, $"Hand cannot be built because room info is missing. [{roomInfo.WindowHandle}]");
                 return false;
             }
-            
+
             if (roomInfo.Packages.FirstOrDefault(x => x.PackageType == RDPackageType.NotifyNextRoundStartRoomResponse) == null
                 && roomInfo.Packages.FirstOrDefault(x => x.PackageType == RDPackageType.NotifyNextRoundStartResponse) == null)
             {
@@ -394,7 +394,10 @@ namespace RedDragonCardCatcher.Importers
 
         private void ProcessNotifyFlopRoundResponse(NotifyFlopRoundResponse response, RDRoomInfo roomInfo, HandHistory handHistory)
         {
-            ProcessPlayerCallResponse(response.doPlayerCallResponse, roomInfo, handHistory);
+            if (response.doPlayerCallResponse != null)
+            {
+                ProcessPlayerCallResponse(response.doPlayerCallResponse, roomInfo, handHistory);
+            }
 
             foreach (var card in response.Cards)
             {
@@ -412,7 +415,7 @@ namespace RedDragonCardCatcher.Importers
 
                 if (player == null)
                 {
-                    throw new RDCCInternalException(new NonLocalizableString($"Failed to find player {gainInfo.playerId} from gain info in list of players."));
+                    continue;
                 }
 
                 if (gainInfo.handCard != null)

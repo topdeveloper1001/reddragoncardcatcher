@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?include Variables.wxi?>
+  <Product Id="*"
+           Name="$(var.ProductName)"
+           Language="1033"
+           Version="$(var.ProductVersion)"
+           Manufacturer=""
+           UpgradeCode="29db3ba0-3036-4c70-8e33-ad62150975ca">
+
+    <Package InstallerVersion="301"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Description="Installs $(var.ProductName)"
+             Keywords="$(var.ProductName),Installer,MSI" />
+
+    <MajorUpgrade Schedule="afterInstallExecute"
+                  DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Property Id="INSTALLDESKTOPSHORTCUT" />
+    <Property Id="INSTALLPROGRAMMENUSHORTCUT" />
+    
+    <Feature Id="ProductFeature" Title="$(var.ProductName) Setup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <Icon Id="DesktopIcon" SourceFile="..\RedDragonCardCatcher\Images\rd-logo.ico" />
+    <Icon Id="StartMenuIcon" SourceFile="..\RedDragonCardCatcher\Images\rd-logo.ico" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="MANUFACTURERFOLDER" Name="$(var.Manufacturer)">
+          <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+            <Directory Id="BIN" Name="bin" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" />
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramMenuDir" Name="$(var.ProductName)"/>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="RedDragonCardCatcher.exe">
+        <File Id="RedDragonCardCatcher.exe" Source="$(var.BuildDirectory)\RedDragonCardCatcher.exe" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="RedDragonCardCatcher.exe.config">
+        <RemoveFile Id="RedDragonCardCatcher.exe.config" Name="RedDragonCardCatcher.exe.config" On="both"/>
+        <File Id="RedDragonCardCatcher.exe.config" Name="RedDragonCardCatcher.exe.config" Source="$(var.BuildDirectory)\RedDragonCardCatcher.exe.config" Vital="yes" />
+      </Component>
+      <Component Id="RDTReg.dll" Guid="{55528F6D-D3F8-4201-AB6E-C651CAE15914}">
+        <File Id="RDTReg.dll" KeyPath="yes" Source="$(var.BuildDirectory)\RDTReg.dll" />
+      </Component>
+      <Component Id="RDSReg.dll" Guid="{78B9FC69-1EEF-420F-BB06-C45990DA45DF}">
+        <File Id="RDSReg.dll" KeyPath="yes" Source="$(var.BuildDirectory)\RDSReg.dll" />
+      </Component>
+      <Component Id="DeployLX.Licensing.v5.dll" Guid="{1F9BC9DC-D649-4D55-92F0-FCD58AD4B779}">
+        <File Id="DeployLX.Licensing.v5.dll" KeyPath="yes" Source="$(var.BuildDirectory)\DeployLX.Licensing.v5.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="Shortcuts" Guid="{1272777C-9B36-461F-ACFE-E3B022276743}">
+        <Shortcut Id="UninstallShortcut"  Name="Uninstall $(var.ProductName)" Description="Uninstalls $(var.ProductName) and all of its components" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />
+        <RemoveFolder Id="RemoveINSTALLDIR" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"  Type="integer"  Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="BIN">
+      <Component Id="RedDragonCardCatcher.Common.dll" Guid="{21BBDC4E-62D3-4D20-9E73-D17380471427}">
+        <File Id="RedDragonCardCatcher.Common.dll" KeyPath="yes" Source="$(var.BuildDirectory)\RedDragonCardCatcher.Common.dll" />
+      </Component>
+      <Component Id="RedDragonCardCatcher.Common.Resources.dll" Guid="{2D72147D-92FB-4F50-9290-3AB13D4AAE21}">
+        <File Id="RedDragonCardCatcher.Common.Resources.dll" KeyPath="yes" Source="$(var.BuildDirectory)\RedDragonCardCatcher.Common.Resources.dll" />
+      </Component>
+      <Component Id="RedDragonCardCatcher.Common.Wpf.dll" Guid="{44E4FC31-9E23-4462-AF52-B1AD138D5737}">
+        <File Id="RedDragonCardCatcher.Common.Wpf.dll" KeyPath="yes" Source="$(var.BuildDirectory)\RedDragonCardCatcher.Common.Wpf.dll" />
+      </Component>
+      <Component Id="log4net.dll" Guid="{6A5BE6E7-975D-416B-89F8-B147F6C445D7}">
+        <File Id="log4net.dll" KeyPath="yes" Source="$(var.BuildDirectory)\log4net.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.ServiceLocation.dll" Guid="{675EB4C3-02DC-4CB2-8B00-E515957C8573}">
+        <File Id="Microsoft.Practices.ServiceLocation.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Microsoft.Practices.ServiceLocation.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.Unity.dll" Guid="{D12DFE82-A8A8-43A3-8A3C-762E26DD5BF5}">
+        <File Id="Microsoft.Practices.Unity.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Microsoft.Practices.Unity.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.Unity.Configuration.dll" Guid="{2F33DAC4-7D4D-4CA6-92FD-116CF3A60693}">
+        <File Id="Microsoft.Practices.Unity.Configuration.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Microsoft.Practices.Unity.Configuration.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" Guid="{6AC3FD33-8C4D-4D72-9E7F-897D80EEEF19}">
+        <File Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+      </Component>
+      <Component Id="Newtonsoft.Json.dll" Guid="{2603501C-9420-49DB-97C6-739BAF705757}">
+        <File Id="Newtonsoft.Json.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Newtonsoft.Json.dll" />
+      </Component>
+      <Component Id="Prism.dll" Guid="{36E848C4-D501-4175-95CE-4AA286BCA0D7}">
+        <File Id="Prism.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Prism.dll" />
+      </Component>
+      <Component Id="Prism.Unity.Wpf.dll" Guid="{12D937A9-B819-49D1-8666-AB1853126D00}">
+        <File Id="Prism.Unity.Wpf.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Prism.Unity.Wpf.dll" />
+      </Component>
+      <Component Id="Prism.Wpf.dll" Guid="{156C2A0D-EA34-450F-92E8-BC046D63234D}">
+        <File Id="Prism.Wpf.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Prism.Wpf.dll" />
+      </Component>
+      <Component Id="ReactiveUI.dll" Guid="{E3F17F97-365A-49DC-8585-4EB2171A7D03}">
+        <File Id="ReactiveUI.dll" KeyPath="yes" Source="$(var.BuildDirectory)\ReactiveUI.dll" />
+      </Component>
+      <Component Id="Splat.dll" Guid="{88E1EF90-097C-45CD-A3DB-08E651AB369B}">
+        <File Id="Splat.dll" KeyPath="yes" Source="$(var.BuildDirectory)\Splat.dll" />
+      </Component>    
+      <Component Id="System.Reactive.Core.dll" Guid="{EE40FA6C-D642-4F9D-B991-F7EB6D1428B1}">
+        <File Id="System.Reactive.Core.dll" KeyPath="yes" Source="$(var.BuildDirectory)\System.Reactive.Core.dll" />
+      </Component>
+      <Component Id="System.Reactive.Interfaces.dll" Guid="{ECC0FCEA-6BD6-4E5B-B3F4-18BF371F596F}">
+        <File Id="System.Reactive.Interfaces.dll" KeyPath="yes" Source="$(var.BuildDirectory)\System.Reactive.Interfaces.dll" />
+      </Component>
+      <Component Id="System.Reactive.Linq.dll" Guid="{038A4869-3D2D-4C45-AED6-89EF092A8B4B}">
+        <File Id="System.Reactive.Linq.dll" KeyPath="yes" Source="$(var.BuildDirectory)\System.Reactive.Linq.dll" />
+      </Component>
+      <Component Id="System.Reactive.PlatformServices.dll" Guid="{6790DA49-2CA0-4E21-BC22-87BFE6F59451}">
+        <File Id="System.Reactive.PlatformServices.dll" KeyPath="yes" Source="$(var.BuildDirectory)\System.Reactive.PlatformServices.dll" />
+      </Component>
+      <Component Id="System.Reactive.Windows.Threading.dll" Guid="{4357934F-1E98-47A8-9612-0315E9CE2282}">
+        <File Id="System.Reactive.Windows.Threading.dll" KeyPath="yes" Source="$(var.BuildDirectory)\System.Reactive.Windows.Threading.dll" />
+      </Component>
+      <Component Id="System.Windows.Interactivity.dll" Guid="{4357934F-1E98-47A8-9612-0315E9CE2282}">
+        <File Id="System.Windows.Interactivity.dll" KeyPath="yes" Source="$(var.BuildDirectory)\System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="protobufnet.dll" Guid="{0F927B03-6B1A-4022-A89E-9DBC1A2161A8}">
+        <File Id="protobufnet.dll" KeyPath="yes" Source="$(var.BuildDirectory)\protobuf-net.dll" />
+      </Component>    
+      <Component Id="ICSharpCode.SharpZipLib.dll" Guid="{8A6B2DEF-57A0-46BE-BD95-B26F3412F4A5}">
+        <File Id="ICSharpCode.SharpZipLib.dll" KeyPath="yes" Name="ICSharpCode.SharpZipLib.dll" Source="$(var.BuildDirectory)\ICSharpCode.SharpZipLib.dll" />
+      </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.dll" Guid="{DA4D499D-3DBD-47EB-A61F-B5BFDACFD912}">
+        <File Id="Xceed.Wpf.AvalonDock.dll" KeyPath="yes" Name="Xceed.Wpf.AvalonDock.dll" Source="$(var.BuildDirectory)\Xceed.Wpf.AvalonDock.dll" />
+      </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Guid="{F89D0B2D-949D-46D1-B4E3-DE2A77C32297}">
+        <File Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" KeyPath="yes" Name="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Source="$(var.BuildDirectory)\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+      </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Guid="{6DB8BFC3-F70A-4E28-ADAC-36C6B378759B}">
+        <File Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" KeyPath="yes" Name="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Source="$(var.BuildDirectory)\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+      </Component>
+      <Component Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Guid="{6FA5F21F-04D4-4618-A2DC-781ADFABBAA4}">
+        <File Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" KeyPath="yes" Name="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Source="$(var.BuildDirectory)\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+      </Component>
+      <Component Id="Xceed.Wpf.DataGrid.dll" Guid="{ABB711F0-7A0D-47CF-ADB7-FE26BED9B63C}">
+        <File Id="Xceed.Wpf.DataGrid.dll" KeyPath="yes" Name="Xceed.Wpf.DataGrid.dll" Source="$(var.BuildDirectory)\Xceed.Wpf.DataGrid.dll" />
+      </Component>
+      <Component Id="Xceed.Wpf.Toolkit.dll" Guid="{9DEEE906-B787-4A89-AF01-B920DEDAFEDD}">
+        <File Id="Xceed.Wpf.Toolkit.dll" KeyPath="yes" Name="Xceed.Wpf.Toolkit.dll" Source="$(var.BuildDirectory)\Xceed.Wpf.Toolkit.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ProgramMenuDir">
+      <Component Id="StartMenuShortcuts" Guid="{E93694A0-702A-4EE1-A895-93C3FA83B3CB}">
+        <Condition>INSTALLPROGRAMMENUSHORTCUT</Condition>
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="$(var.ProductName)" Description="$(var.ProductName)" Target="[#RedDragonCardCatcher.exe]" Icon="StartMenuIcon" WorkingDirectory="INSTALLFOLDER" />
+        <Shortcut Id="UninstallProduct" Name="Uninstall $(var.ProductName)" Description="Uninstalls $(var.ProductName)" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />
+        <RemoveFolder Id="RemoveProgramMenuFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"  Type="integer"  Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="DesktopShortcuts" Guid="{9207C44D-F0CA-480E-9034-12B4CEE399DC}">
+        <Condition>INSTALLDESKTOPSHORTCUT</Condition>
+        <Shortcut Id="ApplicationStartDesktopShortcut" Name="$(var.ProductName)" Description="$(var.ProductName)" Target="[#RedDragonCardCatcher.exe]" Icon="StartMenuIcon" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveDesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed"  Type="integer"  Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentRef Id="Shortcuts"/>
+      <ComponentRef Id="StartMenuShortcuts"/>
+      <ComponentRef Id="DesktopShortcuts"/>
+      <ComponentRef Id="RedDragonCardCatcher.exe" />
+      <ComponentRef Id="RedDragonCardCatcher.exe.config" />
+      <ComponentRef Id="RDTReg.dll" />
+      <ComponentRef Id="RDSReg.dll" />
+      <ComponentRef Id="DeployLX.Licensing.v5.dll" />
+      <ComponentRef Id="Shortcuts" />
+      <ComponentRef Id="RedDragonCardCatcher.Common.dll" />
+      <ComponentRef Id="RedDragonCardCatcher.Common.Resources.dll" />
+      <ComponentRef Id="RedDragonCardCatcher.Common.Wpf.dll" />
+      <ComponentRef Id="log4net.dll" />
+      <ComponentRef Id="Microsoft.Practices.ServiceLocation.dll" />
+      <ComponentRef Id="Microsoft.Practices.Unity.dll" />
+      <ComponentRef Id="Microsoft.Practices.Unity.Configuration.dll" />
+      <ComponentRef Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+      <ComponentRef Id="Newtonsoft.Json.dll" />
+      <ComponentRef Id="Prism.dll" />
+      <ComponentRef Id="Prism.Unity.Wpf.dll" />
+      <ComponentRef Id="Prism.Wpf.dll" />
+      <ComponentRef Id="ReactiveUI.dll" />
+      <ComponentRef Id="Splat.dll" />      
+      <ComponentRef Id="System.Reactive.Core.dll" />
+      <ComponentRef Id="System.Reactive.Interfaces.dll" />
+      <ComponentRef Id="System.Reactive.Linq.dll" />
+      <ComponentRef Id="System.Reactive.PlatformServices.dll" />
+      <ComponentRef Id="System.Reactive.Windows.Threading.dll" />
+      <ComponentRef Id="System.Windows.Interactivity.dll" />
+      <ComponentRef Id="protobufnet.dll" />      
+      <ComponentRef Id="ICSharpCode.SharpZipLib.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+      <ComponentRef Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+      <ComponentRef Id="Xceed.Wpf.DataGrid.dll" />
+      <ComponentRef Id="Xceed.Wpf.Toolkit.dll" />
+    </ComponentGroup>   
+  </Product>
+</Wix>

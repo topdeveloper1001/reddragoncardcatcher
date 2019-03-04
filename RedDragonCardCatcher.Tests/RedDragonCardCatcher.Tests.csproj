@@ -103,7 +103,8 @@
     <Fakes Include="Fakes\mscorlib.fakes" />
     <None Include="packages.config" />
     <None Include="TestData\HandsRawData\nlh-8-max-hero\Source.json" />
-    <None Include="TestData\HandsRawData\nlh-9-max-no-hero\Source.json" />
+    <None Include="TestData\HandsRawData\nlh-8-max-no-hero-2\Source.json" />
+    <None Include="TestData\HandsRawData\nlh-8-max-no-hero\Source.json" />
     <None Include="TestData\HandsRawData\nlh-mtt-no-hero\Source.json" />
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +130,8 @@
     <Content Include="TestData\HandsRawData\nlh-8-max-hero\Result.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="TestData\HandsRawData\nlh-9-max-no-hero\Result.xml" />
+    <Content Include="TestData\HandsRawData\nlh-8-max-no-hero-2\Result.xml" />
+    <Content Include="TestData\HandsRawData\nlh-8-max-no-hero\Result.xml" />
     <Content Include="TestData\HandsRawData\nlh-mtt-no-hero\Result.xml">
       <SubType>Designer</SubType>
     </Content>

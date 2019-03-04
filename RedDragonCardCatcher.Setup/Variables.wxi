@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductName="Red Dragon Card Catcher" ?>
+  <?define ProductVersion="1.0.0" ?>    
+  <?define Manufacturer="Ace Poker Solutions"?>
+  <?define ProductUrl="http:////www.acepokersolutions.com"?>
+  <?define BuildDirectory="..\RedDragonCardCatcher\bin\Release\" ?>
+</Include>

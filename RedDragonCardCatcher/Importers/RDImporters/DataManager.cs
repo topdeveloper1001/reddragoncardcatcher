@@ -50,15 +50,21 @@ namespace RedDragonCardCatcher.Importers
             {
                 var dataBase64String = Encoding.UTF8.GetString(data).Trim();
 
+                var decryptedBase64String = Decrypt(dataBase64String).Trim();
+
+                if (string.IsNullOrEmpty(decryptedBase64String))
+                {
+                    return null;
+                }
+
                 try
                 {
-                    var decryptedBase64String = Decrypt(dataBase64String);
                     return Convert.FromBase64String(decryptedBase64String);
                 }
                 catch (FormatException e)
                 {
 #if DEBUG
-                    LogProvider.Log.Error(this, $"Failed to process data '{dataBase64String}'.", e);
+                    LogProvider.Log.Error(this, $"Failed to convert data '{decryptedBase64String}'.", e);
 #endif                
                     return null;
                 }
@@ -77,8 +83,6 @@ namespace RedDragonCardCatcher.Importers
         /// <returns>Decrypted text</returns>
         private string Decrypt(string encryptedText)
         {
-            return encryptedText;
-
             try
             {
                 var encryptedData = Convert.FromBase64String(encryptedText);
@@ -91,7 +95,7 @@ namespace RedDragonCardCatcher.Importers
                     {
                         using (var swDecrypt = new StreamReader(csDecrypt, Encoding.UTF8))
                         {
-                            decryptedData = swDecrypt.ReadToEnd();
+                            decryptedData = swDecrypt.ReadToEnd().Replace("\0", string.Empty);
                         }
                     }
                 }
@@ -101,11 +105,11 @@ namespace RedDragonCardCatcher.Importers
             catch (Exception e)
             {
 #if DEBUG
-                LogProvider.Log.Error($"Failed to decrypt data: {encryptedText}");
+                LogProvider.Log.Error(this, $"Failed to decrypt data: {encryptedText}", e);
 #else
-                LogProvider.Log.Error("Failed to decrypt data.");
+                LogProvider.Log.Error(this, "Failed to decrypt data.");
 #endif            
-                throw e;
+                return null;
             }
         }
 

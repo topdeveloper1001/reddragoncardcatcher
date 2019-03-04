@@ -55,10 +55,11 @@ namespace RedDragonCardCatcher
             Container.RegisterType<ILicenseService, LicenseService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IWindowController, WindowController>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IImporterService, ImporterService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ILibraryService, LibraryService>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<ILogCollector, LogCollector>();
             Container.RegisterType<IHandHistoryFileService, HandHistoryFileService>();
-      
+
             Container.RegisterType<IEmulatorService, EmulatorService>();
             Container.RegisterType<IPipeServerJob, PipeServerJob>();
             Container.RegisterType<IDataManager, DataManager>();
@@ -148,7 +149,7 @@ namespace RedDragonCardCatcher
             {
                 LogProvider.Log.Error(this, "Could not launch main window.", e);
             }
-        }     
+        }
 
         private void ConfigureImporters()
         {

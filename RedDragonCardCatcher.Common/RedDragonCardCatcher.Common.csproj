@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ConcurrentHashSet.cs" />
+    <Compile Include="Collections\PlatformHelper.cs" />
     <Compile Include="Exceptions\LocalizableException.cs" />
     <Compile Include="Exceptions\RDCCInternalException.cs" />
     <Compile Include="Extensions\ConcurrentCollectionExtensions.cs" />

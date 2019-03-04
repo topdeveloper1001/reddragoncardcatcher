@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HandHistory>
+  <DateOfHandUtc>2019-03-04T14:28:46.2379885Z</DateOfHandUtc>
+  <HandId>1551709726237</HandId>
+  <DealerButtonPosition>2</DealerButtonPosition>
+  <TableName>0.1/0.2-107-199660</TableName>
+  <GameDescription>
+    <PokerFormat>CashGame</PokerFormat>
+    <Site>RedDragon</Site>
+    <GameType>NoLimitHoldem</GameType>
+    <Limit>
+      <Currency>All</Currency>
+      <SmallBlind>0.1</SmallBlind>
+      <BigBlind>0.2</BigBlind>
+      <IsAnteTable>false</IsAnteTable>
+      <Ante>0</Ante>
+    </Limit>
+    <SeatType MaxPlayers="8" />
+    <TableType>Regular</TableType>
+    <Identifier>199660</Identifier>
+  </GameDescription>
+  <Cancelled>false</Cancelled>
+  <NumPlayersSeated>0</NumPlayersSeated>
+  <TotalPot>4</TotalPot>
+  <Rake>0</Rake>
+  <Actions>
+    <HandAction PlayerName="242011" HandActionType="SMALL_BLIND" Amount="-0.1" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="258274" HandActionType="BIG_BLIND" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="255777" HandActionType="CALL" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="254121" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="258036" HandActionType="FOLD" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="245942" HandActionType="CALL" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="252628" HandActionType="CALL" Amount="-0.2" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="242011" HandActionType="CALL" Amount="-0.1" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="258274" HandActionType="CHECK" Amount="0" Street="Preflop" IsAllIn="false" />
+    <HandAction PlayerName="242011" HandActionType="CHECK" Amount="0" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="258274" HandActionType="CHECK" Amount="0" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="255777" HandActionType="CHECK" Amount="0" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="245942" HandActionType="CHECK" Amount="0" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="252628" HandActionType="BET" Amount="-1" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="242011" HandActionType="CALL" Amount="-1" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="258274" HandActionType="FOLD" Amount="0" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="255777" HandActionType="FOLD" Amount="0" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="245942" HandActionType="CALL" Amount="-1" Street="Flop" IsAllIn="false" />
+    <HandAction PlayerName="242011" HandActionType="BET" Amount="-4" Street="Turn" IsAllIn="false" />
+    <HandAction PlayerName="245942" HandActionType="FOLD" Amount="0" Street="Turn" IsAllIn="false" />
+    <HandAction PlayerName="252628" HandActionType="FOLD" Amount="0" Street="Turn" IsAllIn="false" />
+    <HandAction PlayerName="242011" HandActionType="UNCALLED_BET" Amount="4" Street="Turn" IsAllIn="false" />    
+    <HandAction p3:type="WinningsAction" PlayerName="242011" HandActionType="WINS" Amount="4" Street="Summary" IsAllIn="false" PotNumber="1" xmlns:p3="http://www.w3.org/2001/XMLSchema-instance" />
+  </Actions>
+  <CommunityCards>6c7d5d5c</CommunityCards>
+  <Players>
+    <Player PlayerName="245942" PlayerNick="fage" StartingStack="72.61" Bet="1.2" Win="0" SeatNumber="1" Cards="" IsSittingOut="false" />
+    <Player PlayerName="252628" PlayerNick="Fisher" StartingStack="110.99" Bet="1.2" Win="0" SeatNumber="2" Cards="" IsSittingOut="false" />
+    <Player PlayerName="242011" PlayerNick="肌肉狗" StartingStack="19.32" Bet="5.2" Win="4" SeatNumber="4" Cards="" IsSittingOut="false" />
+    <Player PlayerName="258274" PlayerNick="MonsterRE" StartingStack="62.32" Bet="0.2" Win="0" SeatNumber="5" Cards="" IsSittingOut="false" />
+    <Player PlayerName="255777" PlayerNick="elena" StartingStack="15.13" Bet="0.2" Win="0" SeatNumber="6" Cards="" IsSittingOut="false" />
+    <Player PlayerName="254121" PlayerNick="ranye" StartingStack="15.1" Bet="0" Win="0" SeatNumber="7" Cards="" IsSittingOut="false" />
+    <Player PlayerName="258036" PlayerNick="cattey" StartingStack="21.7" Bet="0" Win="0" SeatNumber="8" Cards="" IsSittingOut="false" />
+  </Players>
+</HandHistory>

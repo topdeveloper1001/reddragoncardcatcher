@@ -293,7 +293,10 @@
     <Compile Include="Services\HandHistoryFileInfo.cs" />
     <Compile Include="Services\HandHistoryFileService.cs" />
     <Compile Include="Services\IHandHistoryFileService.cs" />
+    <Compile Include="Services\ILibraryService.cs" />
     <Compile Include="Services\ILogCollector.cs" />
+    <Compile Include="Services\LibraryService.cs" />
+    <Compile Include="Services\LibraryType.cs" />
     <Compile Include="Services\LogCleaner.cs" />
     <Compile Include="Services\LogCollector.cs" />
     <Compile Include="Settings\ISettingsService.cs" />
@@ -361,12 +364,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="Lib\injector">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Lib\libhookimpl.so">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="Lib\injector" />
+    <EmbeddedResource Include="Lib\libhookimpl.so" />
     <None Include="packages.config" />
     <None Include="Services\DbInstaller\Profiles\Cash - PPP IPoker Profile.pt4hud" />
     <None Include="Services\DbInstaller\Profiles\Tournament - PPP IPoker Profile.pt4hud" />
@@ -452,10 +451,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\rd-logo.ico" />
-    <Content Include="Lib\HereBeDragons.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Lib\EmulatorHelper.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

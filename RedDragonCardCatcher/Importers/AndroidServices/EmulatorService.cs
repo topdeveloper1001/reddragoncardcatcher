@@ -16,6 +16,7 @@ using RedDragonCardCatcher.Common.Linq;
 using RedDragonCardCatcher.Common.Log;
 using RedDragonCardCatcher.Common.Utils.Network;
 using RedDragonCardCatcher.Common.WinApi;
+using RedDragonCardCatcher.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,14 +40,9 @@ namespace RedDragonCardCatcher.Importers
         private const int ExitTimeout = 7000;
 
         /// <summary>
-        /// Path to libraries
-        /// </summary>
-        private const string LibPath = "Lib";
-
-        /// <summary>
         /// Name of dll for injection into emulator
         /// </summary>
-        private const string DllToInject = "HereBeDragons.dll";
+        private const string DllToInject = "EmulatorHelper.dll";
 
         /// <summary>
         /// Path to the temp folder on emulator
@@ -72,6 +67,8 @@ namespace RedDragonCardCatcher.Importers
         public override string ImporterName => "Emulators Service";
 
         protected readonly Dictionary<int, EmulatorInfo> activeEmulators = new Dictionary<int, EmulatorInfo>();
+
+        protected readonly ILibraryService libraryService = ServiceLocator.Current.GetInstance<ILibraryService>();
 
         protected override void DoImport()
         {
@@ -107,6 +104,7 @@ namespace RedDragonCardCatcher.Importers
             });
 
             activeEmulators.Clear();
+            libraryService.RemoveAll();
 
             RaiseProcessStopped();
         }
@@ -286,14 +284,14 @@ namespace RedDragonCardCatcher.Importers
         /// </summary>
         protected void PatchEmulators()
         {
-            var injector = new FileInfo(Path.Combine(LibPath, "injector"));
+            var injector = new FileInfo(libraryService.GetLibraryPath(LibraryType.Injector));
 
             if (!injector.Exists)
             {
                 throw new FileNotFoundException("Injector file not found.", injector.FullName);
             }
 
-            var hook = new FileInfo(Path.Combine(LibPath, "libhookimpl.so"));
+            var hook = new FileInfo(libraryService.GetLibraryPath(LibraryType.LibHook));
 
             if (!hook.Exists)
             {
@@ -422,7 +420,7 @@ namespace RedDragonCardCatcher.Importers
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             }
 
-            var dllPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), LibPath, DllToInject);
+            var dllPath = Path.Combine(libraryService.GetLibraryPath(LibraryType.EmulatorHelper));
 
             if (!File.Exists(dllPath))
             {
